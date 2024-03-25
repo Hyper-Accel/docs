@@ -12,4 +12,4 @@ $ cd ~/sdk/model_compile
 $ python sdk-launcher.py
 ```
 
-3. Please type a 
+3. Please type a model name
