@@ -8,9 +8,21 @@ Copyright 2023 The HyperAccel. All rights reserved.
     <br>
 </p>
 
-Provides an implementation of python package for HyperAccel LPU™, with a focus on performance and versatility.<br>
+Provides an implementation of python package for HyperAccel LPU™, with a focus on performance and versatility.
 
-## Quick tour
+## Quick Start
+Let’s start by running our first project!
+
+## Installation
+
+This repository is tested on Python 3.9+, PyTorch 2.0+ and HuggingFace Transformers 4.31+.
+HyperDex can be installed using pip as follows:
+
+```bash
+pip install hyperdex-python
+```
+
+## Example
 
 Similar to [HuggingFace transformer](https://huggingface.co/docs/transformers/index) package, HyperDex uses an `AutoModelForCausalLM` module to load the Transformers. To load the model parameters, you can simply give the path of the HyperDex model checkpoint.
 

@@ -7,7 +7,11 @@ theme:
     - python
 
 nav:
-  - Home: index.md
-  - Getting Started : guide.md 
-  - Models: models.md
-  - Compilation: compile.md
+  - Getting Started : 
+    - 'Quick Start' : 'index.md'
+    - 'HyperDex-Python' : 'guide.md'
+    - 'Deploy with Docker' : 'docker.md'
+    - 'Web Serving' : 'chatui.md'
+  - Models :
+    - 'LLM Compile' : 'compile.md'
+    - 'Supported Models' : 'models.md'
