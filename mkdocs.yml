@@ -1,17 +1,15 @@
+
 site_name: HyperAccel Documents
 
 theme:
   name: readthedocs
-  highlightjs: true
-  hljs_languages:
-    - python
 
 nav:
-  - Getting Started : 
-    - 'Quick Start' : 'index.md'
-    - 'HyperDex-Python' : 'guide.md'
-    - 'Deploy with Docker' : 'docker.md'
-    - 'Web Serving' : 'chatui.md'
-  - Models :
-    - 'LLM Compile' : 'compile.md'
-    - 'Supported Models' : 'models.md'
+  - Getting Started: 
+    - Quick Start: index.md
+    - HyperDex-Python: guide.md
+    - Deploy with Docker: docker.md
+    - Web Serving: chatui.md
+  - Models:
+    - LLM Compile: compile.md
+    - Supported Models: models.md
