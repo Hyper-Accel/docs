@@ -1,11 +1,3 @@
-## Installation
-
-This repository is tested on Python 3.9+, PyTorch 2.0+ and HuggingFace Transformers 4.31+.
-HyperDex can be installed using pip as follows:
-
-```bash
-pip install hyperdex-python
-```
 
 ## Text Generation with HyperAccel LPU™
 
