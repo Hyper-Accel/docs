@@ -11,7 +11,11 @@ Copyright 2023 The HyperAccel. All rights reserved.
 Provides an implementation of python package for HyperAccel LPU™, with a focus on performance and versatility.
 
 ## Quick Start
-Let’s start by running our first project!
+This guide shows how to use our LPU and sofware stack to:
+* run offline LLM optimized inference on a dataset;
+* ~~build an API server for a large language model;~~ (To be announced)
+* software development kit for easy model compilation
+* chatbot demos with HyperAccel Orion server
 
 ## Installation
 

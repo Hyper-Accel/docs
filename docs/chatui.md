@@ -1,6 +1,10 @@
 
-## Web Serving
+## HyperAccel Chatbot with [Orion Server](https://drive.google.com/file/d/1xU6lKpjjQ85SnducxpU_xQDUeTJdHBQz/view)
 
-HyperAccel Supports the web service like `ChatGPT`. You can try it through the link below. Give it a try!
+HyperAccel supports a ChatGPT-style chatbot demo. If you are interested in the demo, please contact us at the contact email (contact@hyperaccel.ai)
 
-HyperDex ChatBot URL : [http://hyperaccel-chat.fly.dev](https://hyperaccel-chat.fly.dev/)
+<p align="center">
+    <br>
+    <img src="https://hyperaccel.dooray.com/share/drive-files/rl66dth6rt6x.t-k0RbdHQoeNcaIhhfHEJg" width="400"/>
+    <br>
+</p>

@@ -1,12 +1,3 @@
-## Installation
-
-This repository is tested on Python 3.9+, PyTorch 2.0+ and HuggingFace Transformers 4.35+.
-HyperDex can be installed using pip as follows:
-
-```bash
-pip install hyperdex-python
-```
-
 ## Text Generation with HyperAccel LPU™
 
 HyperDex allows you to output tokens using a function similar to HuggingFace's `generate` function. Therefore, you can easily generate tokens as shown in the example below.
