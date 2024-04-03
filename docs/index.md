@@ -12,10 +12,9 @@ Provides an implementation of python package for HyperAccel LPU™, with a focus
 
 ## Quick Start
 This guide shows how to use our LPU and sofware stack to:
-* run offline LLM optimized inference on a dataset;
-* ~~build an API server for a large language model;~~ (To be announced)
-* software development kit for easy model compilation
-* chatbot demos with HyperAccel Orion server
+- run offline LLM optimized inference on a dataset
+- software development kit for easy model compilation
+- chatbot demos with HyperAccel Orion server
 
 ## Installation
 
