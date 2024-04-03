@@ -65,5 +65,4 @@ The result of this optimization is a binary file.
 [Info	] Exit SDK program
 ```
 
-
 To refer to the list of models supported by the HyperDex SDK, please visit the following page: [Supported Models](./models.md)
