@@ -3,8 +3,4 @@
 
 HyperAccel supports a ChatGPT-style chatbot demo. If you are interested in the demo, please contact us at the contact email (contact@hyperaccel.ai)
 
-<p align="center">
-    <br>
-    <img src="./images/chatbot-demo.gif" width=""/>
-    <br>
-</p>
+![Chatbot-Demo](./images/chatbot-demo.gif)
