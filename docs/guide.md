@@ -1,6 +1,6 @@
 ## Installation
 
-This repository is tested on Python 3.9+, PyTorch 2.0+ and HuggingFace Transformers 4.31+.
+This repository is tested on Python 3.9+, PyTorch 2.0+ and HuggingFace Transformers 4.35+.
 HyperDex can be installed using pip as follows:
 
 ```bash
