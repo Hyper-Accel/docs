@@ -11,11 +11,12 @@ HyperDex supports a variety of generative Transformer models in [HuggingFace Tra
 |`GPTJForCausalLM`        |GPT-J                                                        |`EleutherAI/gpt-j-6b`, etc.                              |
 |`GPTNeoXForCausalLM`     |GPT-NeoX,<br>Pythia,<br>OpenAssistant,<br>Dolly,<br>StableLM |`EleutherAI/gpt-neox-20b`, `EleutherAI/pythia-12b`, etc. |
 |`InternLM2ForCausalLM`   |InternLM2                                                    |`internlm/internlm2-7b`, etc.                            |
-|`LlamaForCausalLM`       |LLaMA,<br>LLAMA-2,<br>Alpaca,<br>Yi                          |`meta-llama/Llama-2-7b-hf`, `01-ai/Yi-6B`, etc.          |
+|`LlamaForCausalLM`       |LLaMA,<br>LLAMA-2,<br>LLAMA-3,<br>Alpaca,<br>Yi              |`meta-llama/Llama-2-7b-hf`, `01-ai/Yi-6B`, etc.          |
 |`MistralForCausalLM`     |Mistral<br>Mistral-Instruct                                  |`mistralai/Mistral-7B-v0.1`, etc.                        |
 |`OPTForCausalLM`         |OPT                                                          |`facebook/opt-1.3b`, `facebook/opt-66b`, etc.            |
 |`OrionForCausalLM`       |Orion                                                        |`OrionStarAI/Orion-14B-Base`, etc.                       |
 |`PhiForCausalLM`         |Phi                                                          |`microsoft/phi-1_5`, `microsoft/phi-2`, etc.             |
+|`Phi3ForCausalLM`        |Phi3                                                         |`microsoft/phi-3`, etc.                                  |
 |`Qwen2ForCausalLM`       |Qwen2                                                        |`Qwen/Qwen2-beta-7B`, `Qwen/Qwen2-beta-7B-Chat`, etc.    |
 |`StableLmForCausalLM`    |StableLM                                                     |`stabilityai/stablelm-3b-4e1t/`, etc.                    |
 |`StarCoder2ForCausalLM`  |StarCoder2                                                   |`bigcode/starcoder2-15b`, etc.                           |
