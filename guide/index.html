@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>HyperDex-Python - HyperAccel Documents</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "HyperDex-Python";
+        var mkdocs_page_input_path = "guide.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> HyperAccel Documents
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="..">Quick Start</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="#">HyperDex-Python</a>
+    <ul class="current">
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Models</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../compile/">LLM Compile</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../models/">Supported Models</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Demos</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../chatui/">HyperAccel Chatbot</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">HyperAccel Documents</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Getting Started</li>
+      <li class="breadcrumb-item active">HyperDex-Python</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="text-generation-with-hyperaccel-lputm">Text Generation with HyperAccel LPU™</h2>
+<p>HyperDex allows you to output tokens using a function similar to HuggingFace's <code>generate</code> function. Therefore, you can easily generate tokens as shown in the example below.
+`text_generation.py' is an introductory example code that uses the Hyperdex APIs to generate tokens using the LPU.</p>
+<pre><code class="language-python"># Immport HyperDex transformers
+from hyperdex.transformers import AutoModelForCausalLM
+from hyperdex.transformers import AutoTokenizer
+
+# Path to hyperdex checkpoint (MODIFY model path and model here)
+hyperdex_ckpt = &quot;/path/to/llama-7b&quot;
+
+# Load tokenzier and model (MODIFY hardware configuration here)
+tokenizer = AutoTokenizer.from_pretrained(model_id=hyperdex_ckpt)
+model = AutoModelForCausalLM.from_pretrained(model_id=hyperdex_ckpt, device_map={&quot;lpu&quot;: 1})
+
+# Input text (MODIFY your input here)
+inputs = &quot;Hello world!&quot;
+
+# 1. Encode input text to input token ids
+input_ids = tokenizer.encode(inputs, return_tensors=&quot;np&quot;)
+# 2. Generate output token ids with LPU™ (MODIFY sampling parameters here)
+output_ids = model.generate(
+  inputs,
+  max_length=1024,
+  # Sampling
+  do_sample=True,
+  top_p=0.7,
+  top_k=50,
+  temperature=1.0,
+  repetition_penalty=1.2,
+  # Stopping
+  early_stopping=False
+)
+# 3. Decode output token ids to output text
+outputs = tokenizer.decode(output_ids, skip_special_tokens=True)
+
+# Print the output context
+print(outputs)
+</code></pre>
+<h2 id="lpu-gpu-hybrid-system">LPU-GPU Hybrid System</h2>
+<p>Starting from version 1.3.2, HyperDex-Python supports the LPU-GPU hybrid system. The GPU, which has relatively higher computing power, handles the Prefill part of the Transformer, while the LPU, which efficiently utilizes memory bandwidth, processes the Decode part. The Key-Value transfer between Prefill and Decode can be performed without overhead using HyperDex's proprietary technology. You can select the number of devices to use for both GPU and LPU through the <code>device_map</code> option.</p>
+<pre><code class="language-python"># Use LPU-GPU hybrid system with devce_map option
+tokenizer = AutoTokenizer.from_pretrained(model_id=hyperdex_ckpt)
+model = AutoModelForCausalLM.from_pretrained(model_id=hyperdex_ckpt, device_map={&quot;gpu&quot;: 1, &quot;lpu&quot;: 1})
+</code></pre>
+<p>To use the hybrid system, you need CUDA version 12.1 or later and the corresponding version of PyTorch.</p>
+<h2 id="sampling">Sampling</h2>
+<p>Sampling works in the same way as HuggingFace. For sampling, you have options like top_p, top_k, temperature, and repetition penalty. Please refer to the HuggingFace documentation for explanations of each option. Additionally, the <code>generate</code> function allows you to directly control randomness using the seed argument. If <code>do_smaple</code> is <code>False</code>, LPU does not perform sampling and uses greedy method.</p>
+<table>
+<thead>
+<tr>
+<th>Sampling Arguments</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>top_p</code></td>
+<td>Top-P sampling. Default value is <code>0.7</code></td>
+</tr>
+<tr>
+<td><code>top_k</code></td>
+<td>Top-K sampling. Default value is <code>1</code></td>
+</tr>
+<tr>
+<td><code>temperature</code></td>
+<td>Smoothing the logit distribution. Defualt value is <code>1.0</code></td>
+</tr>
+<tr>
+<td><code>repetition_penalty</code></td>
+<td>Give penlaty to logits. Default value is <code>1.2</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="streaming-token-generation">Streaming Token Generation</h2>
+<p>HyperDex supports streaming token generation in a similar manner to HuggingFace. You can activate it by passing the TextStreamer module as an argument to the <code>generate</code> function.</p>
+<pre><code class="language-python"># Immport HyperDex transformers
+from hyperdex.transformers import AutoModelForCausalLM
+from hyperdex.transformers import AutoTokenizer
+from hyperdex.transformers import TextStreamer
+
+# Path to hyperdex checkpoint
+hyperdex_ckpt = &quot;/path/to/llama-7b&quot;
+
+# Load tokenzier and model
+tokenizer = AutoTokenizer.from_pretrained(model_id=hyperdex_ckpt)
+model = AutoModelForCausalLM.from_pretrained(model_id=hyperdex_ckpt, device_map={&quot;lpu&quot;: 1})
+# Config streamer module
+streamer = TextStreamer(tokenizer, skip_special_tokens=True)
+</code></pre>
+<p>Since the <code>TextStreamer</code> module includes the process of decoding through the <code>tokenizer</code> and printing internally, you only need to call the <code>generate</code> function.</p>
+<pre><code class="language-python"># Input text
+inputs = &quot;Hello world!&quot;
+
+# 1. Encdoe input text to input token ids
+input_ids = tokenizer.encode(&quot;Hello world!&quot;, return_tensors=&quot;np&quot;)
+# 2. Generate streaming output token ids with LPU™
+model.generate(
+  inputs,
+  max_length=1024,
+  # Sampling
+  do_sample=True,
+  top_p=0.7,
+  top_k=50,
+  temperature=1.0,
+  repetition_penalty=1.2,
+  # Streaming
+  streamer=streamer
+)
+</code></pre>
+<h2 id="how-to-use-streaming-with-other-application">How to use streaming with other Application?</h2>
+<p>HyperDex utilizes the <code>yield</code> keyword in Python to enable streaming for use in other applications. When you call the <code>generate_yield</code> function, it returns using <code>yield</code>, making it easy to use in other Python applications.</p>
+<pre><code class="language-python"># Config streamer module with disable print to activate yield mode
+streamer = TextStreamer(tokenizer, use_print=False, skip_special_tokens=True)
+
+# Input text
+inputs = &quot;Hello world!&quot;
+
+# 1. Encdoe input text to input token ids
+input_ids = tokenizer.encode(&quot;Hello world!&quot;, return_tensors=&quot;np&quot;)
+# 2. Generate streaming output token ids with LPU™
+output_ids = model.generate_yield(
+  inputs,
+  max_length=1024,
+  # Sampling
+  do_sample=True,
+  top_p=0.7,
+  top_k=50,
+  temperature=1.0,
+  repetition_penalty=1.2,
+  # Streaming
+  streamer=streamer
+)
+
+# Use outputs_ids which type is generator
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href=".." class="btn btn-neutral float-left" title="Quick Start"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../compile/" class="btn btn-neutral float-right" title="LLM Compile">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../compile/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
