@@ -12,8 +12,8 @@ from hyperdex.transformers import AutoTokenizer
 hyperdex_ckpt = "/path/to/llama-7b"
 
 # Load tokenzier and model (MODIFY hardware configuration here)
-tokenizer = AutoTokenizer.from_pretrained(ckpt=hyperdex_ckpt)
-model = AutoModelForCausalLM.from_pretrained(ckpt=hyperdex_ckpt, num_device=1)
+tokenizer = AutoTokenizer.from_pretrained(model_id=hyperdex_ckpt)
+model = AutoModelForCausalLM.from_pretrained(model_id=hyperdex_ckpt, device_map={"lpu": 1})
 
 # Input text (MODIFY your input here)
 inputs = "Hello world!"
@@ -40,6 +40,18 @@ outputs = tokenizer.decode(output_ids, skip_special_tokens=True)
 print(outputs)
 ```
 
+## LPU-GPU Hybrid System
+
+Starting from version 1.3.2, HyperDex-Python supports the LPU-GPU hybrid system. The GPU, which has relatively higher computing power, handles the Prefill part of the Transformer, while the LPU, which efficiently utilizes memory bandwidth, processes the Decode part. The Key-Value transfer between Prefill and Decode can be performed without overhead using HyperDex's proprietary technology. You can select the number of devices to use for both GPU and LPU through the `device_map` option.
+
+```python
+# Use LPU-GPU hybrid system with devce_map option
+tokenizer = AutoTokenizer.from_pretrained(model_id=hyperdex_ckpt)
+model = AutoModelForCausalLM.from_pretrained(model_id=hyperdex_ckpt, device_map={"gpu": 1, "lpu": 1})
+```
+
+To use the hybrid system, you need CUDA version 12.1 or later and the corresponding version of PyTorch.
+
 ## Sampling
 
 Sampling works in the same way as HuggingFace. For sampling, you have options like top_p, top_k, temperature, and repetition penalty. Please refer to the HuggingFace documentation for explanations of each option. Additionally, the `generate` function allows you to directly control randomness using the seed argument. If `do_smaple` is `False`, LPU does not perform sampling and uses greedy method.
@@ -65,8 +77,8 @@ from hyperdex.transformers import TextStreamer
 hyperdex_ckpt = "/path/to/llama-7b"
 
 # Load tokenzier and model
-tokenizer = AutoTokenizer.from_pretrained(ckpt=hyperdex_ckpt)
-model = AutoModelForCausalLM.from_pretrained(ckpt=hyperdex_ckpt, num_device=1)
+tokenizer = AutoTokenizer.from_pretrained(model_id=hyperdex_ckpt)
+model = AutoModelForCausalLM.from_pretrained(model_id=hyperdex_ckpt, device_map={"lpu": 1})
 # Config streamer module
 streamer = TextStreamer(tokenizer, skip_special_tokens=True)
 ```

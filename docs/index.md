@@ -35,7 +35,7 @@ from hyperdex.transformers import AutoTokenizer
 
 # Load tokenzier and model
 tokenizer = AutoTokenizer.from_pretrained("llama-7b")
-model = AutoModelForCausalLM.from_pretrained("llama-7b")
+model = AutoModelForCausalLM.from_pretrained("llama-7b", device_map={"lpu": 1})
 
 # Text Generation
 input_ids = tokenizer.encode("Hello world!", return_tensors="np")
