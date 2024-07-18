@@ -1,27 +1,29 @@
 ## Text Generation with API
 
-The ~/example/api_server allows to make an API setting. This requires two terminals at once, one to run the server and another to act as a client using the server.
+The `~/example/api_server` allows to make an API setting. This requires two terminals at once, one to run the server and another to act as a client using the server.
 
 ## Server Setting
 
 Run the following code to run the server.
 
 ```bash
-python -m hserve.huggingface.api_server --served-model-path /opt/hyperdex/models --served-model-name {Hugging Face Model ID} --served-lpu-device-num {# of LPU} --served-gpu-device-num {# of GPU} --verbose
+$ python -m hserve.huggingface.api_server <br>--served-model-path /opt/hyperdex/models <br>--served-model-name {Hugging Face Model ID} <br>--served-lpu-device-num {# of LPU} <br>--served-gpu-device-num {# of GPU} <br>--verbose
 ```
 
 Example 
 ```bash
-python -m hserve.huggingface.api_server --served-model-path /opt/hyperdex/models --served-model-name TinyLlama/TinyLlama-1.1B-Chat-v1.0 --served-lpu-device-num 1 --served-gpu-device-num 0 --verbose
+$ python -m hserve.huggingface.api_server <br>--served-model-path /opt/hyperdex/models <br>--served-model-name TinyLlama/TinyLlama-1.1B-Chat-v1.0 <br>--served-lpu-device-num 1 <br>--served-gpu-device-num 0 <br>--verbose
 ```
 
 ## Client
 
-Run client.py inside ~/example/api_server.
+Run `client.py` inside `~/example/api_server`.
 
-This will run the LLM model when setting the server(--served-model-name) with (--served-lpu-device-num) number of LPUs.
+```bash
+$ python client.py
+```
 
-`client.py' is an introductory example code that uses the APIs to generate tokens using the LPU.
+This will run the LLM model when setting the server(--served-model-name) with (--served-lpu-device-num) number of LPUs. `client.py` is an introductory example code that uses the APIs to generate tokens using the LPU.
 ```python
 import argparse
 import requests
@@ -75,7 +77,7 @@ if __name__ == "__main__":
 ```
 ## Customizing
 
-The text_generation() function allows to generate tokens and reponses. To customize the prompt and response length, change the 'prompt' and 'max_new_tokens' inside the function.
+The text_generation() function allows to generate tokens and reponses. To customize the prompt and response length, change the `prompt` and `max_new_tokens` inside the function.
 
 ```python
   # Get the response
@@ -93,3 +95,11 @@ The text_generation() function allows to generate tokens and reponses. To custom
   )
 ```
 From the code above, change the "Do you know KAIST" to generate a different response and change 512 to generate longer response.
+
+## Streaming Option
+
+When generating response, tokens can be displayed as they are made if stream option is added as below.
+
+```bash
+$ python client.py --stream
+```
