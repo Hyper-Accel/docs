@@ -8,6 +8,7 @@ nav:
   - Getting Started: 
     - Quick Start: index.md
     - HyperDex-Python: guide.md
+    - HyperDex-Serve: serve.md
   - Models:
     - LLM Compile: compile.md
     - Supported Models: models.md
