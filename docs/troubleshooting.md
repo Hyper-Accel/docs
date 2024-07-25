@@ -33,6 +33,6 @@ $ hyperdex-reset -d {LPU id}
 After successfully resetting the device, this will be displayed.
 <p align="center">
     <br>
-    <img src="./images/smi.png"/>
+    <img src="./images/reset.png"/>
     <br>
 </p>
