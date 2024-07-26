@@ -10,11 +10,7 @@ You can check the status of the device that is running. This code shows online d
 ```bash
 $ watch -n 1 hyperdex-smi
 ```
-<p align="center">
-    <br>
-    <img src="./images/smi.png" width="400"/>
-    <br>
-</p>
+![Hyperdex-smi](./images/smi.png)
 
 This refreshes the display every second. To make the refresh rate faster, decrease 1 to a lower number(e.g. 0.5). The number on the most left side is the id of the LPU™.
 
@@ -31,8 +27,4 @@ $ hyperdex-reset -d {LPU id}
 ```     
 
 After successfully resetting the device, this will be displayed.
-<p align="center">
-    <br>
-    <img src="./images/reset.png"/>
-    <br>
-</p>
+![Reset](./images/reset.png)
