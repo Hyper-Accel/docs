@@ -7,22 +7,12 @@ The `~/example/api_server` allows to make an API setting. This requires two term
 Run the following code to run the server.
 
 ```bash
-$ python -m hserve.huggingface.api_server 
-    --served-model-path /opt/hyperdex/models
-    --served-model-name {Hugging Face Model ID} 
-    --served-lpu-device-num {# of LPU} 
-    --served-gpu-device-num {# of GPU} 
-    --verbose
+$ python -m hserve.huggingface.api_server <br>--served-model-path /opt/hyperdex/models <br>--served-model-name {Hugging Face Model ID} <br>--served-lpu-device-num {# of LPU} <br>--served-gpu-device-num {# of GPU} <br>--verbose
 ```
 
 Example 
 ```bash
-$ python -m hserve.huggingface.api_server 
-    --served-model-path /opt/hyperdex/models 
-    --served-model-name TinyLlama/TinyLlama-1.1B-Chat-v1.0 
-    --served-lpu-device-num 1 
-    --served-gpu-device-num 0 
-    --verbose
+$ python -m hserve.huggingface.api_server <br>--served-model-path /opt/hyperdex/models <br>--served-model-name TinyLlama/TinyLlama-1.1B-Chat-v1.0 <br>--served-lpu-device-num 1 <br>--served-gpu-device-num 0 <br>--verbose
 ```
 
 ## Client
