@@ -1,29 +1,46 @@
-## HyperDex Model Software-Development-Kit
-
-HyperDex helps to run LPUs using Hugging Face's checkpoints. The following content explains how to transform Hugging Face models to be executable on LPUs.
+**HyperDex-Compiler SDK** helps to run LPUs using Hugging Face's checkpoints. The following content explains how to transform HuggingFace models to be executable on LPUs.
 
 ## Installation
 
-This repository is tested on Python 3.9+, PyTorch 2.0+ and HuggingFace Transformers 4.35+. HyperDex can be installed using pip as follows:
+!!! note
+    **HyperDex-Compiler SDK** is a Python package that internally relies on the **HyperDex-Python** package. Therefore, the required installation environment is the same as that of **HyperDex-Python**.
 
-```bash
-pip install hyperdex-sdk
+### Requirements
+
+* **OS**: Ubuntu 22.04 LTS, Rocky 8.4
+* **Python**: 3.9 ~ 3.11
+* [Xilinx Runtime Library](./install_guide.md)
+* [HyperDex Runtime & Compiler stack](./install_guide.md)
+* [HyperDex-Python](./python_api.md) Package
+
+### Install with pip
+You can install `hyperdex-sdk` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
+
+```shell linenums="1" hl_lines="5 6 7"
+$ # (Recommended) Create a new conda environemnt.
+$ conda create -n hdex-env python=3.10 -y
+$ conda activate hdex-env
+
+$ # Install HyperDex-Python and HyperDex-Compiler SDK
+$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-python
+$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-sdk
 ```
 
 ## Compile HuggingFace-Hub Model
 
-HyperDex SDK provides a CLI-based program. You can use the `--prefix` option to determine the directory path where the model will be downloaded. For large-sized models or private models that are not uploaded to the HuggingFace-Hub, you can manually move them to the specified path and then use the SDK. (i.g. `facebook/opt-1.3b` model would be downloaded to `/path/to/prefix/facebook/opt-1.3b/ckpt`.)
+HyperDex-Compiler SDK provides a CLI-based program. You can use the `--prefix` option to determine the directory path where the model will be downloaded. For large-sized models or private models that are not uploaded to the HuggingFace-Hub, you can manually move them to the specified path and then use the SDK. (i.g. `facebook/opt-1.3b` model would be downloaded to `/path/to/prefix/facebook/opt-1.3b/ckpt`.)
+
 
 Start the SDK program:
-```bash
-$ python -m hyperdex_sdk.cli.run --prefix /path/to/prefix
+```shell linenums="1"
+$ hdex-compile --prefix /path/to/prefix
 ```
 After running the program, you can input the necessary information such as the model's ID, the number of devices, and other details according to the program's instructions.
 
-Here is an example of running the SDK program for the "facebook/opt-1.3b" model:
-```shell
+Here is an example of running the SDK program for the `facebook/opt-1.3b` model:
+```shell linenums="1" hl_lines="14 30"
 **********************************************************************
-** HyperDex Model SDK Version 1.3.1
+** HyperDex Model SDK Version 1.3.2
 ** Copyright (c) 2024 HyperAccel
 **********************************************************************
 
@@ -65,4 +82,4 @@ The result of this optimization is a binary file.
 [Info	] Exit SDK program
 ```
 
-To refer to the list of models supported by the HyperDex SDK, please visit the following page: [Supported Models](./models.md)
+To refer to the list of models supported by the HyperDex SDK, please visit the following page: [Supported Models](./supported_models.md)

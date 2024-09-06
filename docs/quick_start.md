@@ -1,137 +1,29 @@
 ## Text Generation with HyperAccel LPU™
 
-HyperDex allows you to output tokens using a function similar to HuggingFace's `generate` function. Therefore, you can easily generate tokens as shown in the example below.
-`text_generation.py' is an introductory example code that uses the Hyperdex APIs to generate tokens using the LPU.
+Similar to [HuggingFace transformer](https://huggingface.co/docs/transformers/index) package, HyperDex uses an `AutoModelForCausalLM` module to load the Transformers. To load the model parameters, you can simply give the path of the HyperDex model checkpoint.
 
-```python
-# Immport HyperDex transformers
+```python linenums="1"
 from hyperdex.transformers import AutoModelForCausalLM
 from hyperdex.transformers import AutoTokenizer
-
-# Path to hyperdex checkpoint (MODIFY model path and model here)
-hyperdex_ckpt = "/path/to/llama-7b"
-
-# Load tokenzier and model (MODIFY hardware configuration here)
-tokenizer = AutoTokenizer.from_pretrained(model_id=hyperdex_ckpt)
-model = AutoModelForCausalLM.from_pretrained(model_id=hyperdex_ckpt, device_map={"lpu": 1})
-
-# Input text (MODIFY your input here)
-inputs = "Hello world!"
-
-# 1. Encode input text to input token ids
-input_ids = tokenizer.encode(inputs, return_tensors="np")
-# 2. Generate output token ids with LPU™ (MODIFY sampling parameters here)
-output_ids = model.generate(
-  inputs,
-  max_length=1024,
-  # Sampling
-  do_sample=True,
-  top_p=0.7,
-  top_k=50,
-  temperature=1.0,
-  repetition_penalty=1.2,
-  # Stopping
-  early_stopping=False
-)
-# 3. Decode output token ids to output text
-outputs = tokenizer.decode(output_ids, skip_special_tokens=True)
-
-# Print the output context
-print(outputs)
-```
-
-## LPU-GPU Hybrid System
-
-Starting from version 1.3.2, HyperDex-Python supports the LPU-GPU hybrid system. The GPU, which has relatively higher computing power, handles the Prefill part of the Transformer, while the LPU, which efficiently utilizes memory bandwidth, processes the Decode part. The Key-Value transfer between Prefill and Decode can be performed without overhead using HyperDex's proprietary technology. You can select the number of devices to use for both GPU and LPU through the `device_map` option.
-
-```python
-# Use LPU-GPU hybrid system with devce_map option
-tokenizer = AutoTokenizer.from_pretrained(model_id=hyperdex_ckpt)
-model = AutoModelForCausalLM.from_pretrained(model_id=hyperdex_ckpt, device_map={"gpu": 1, "lpu": 1})
-```
-
-To use the hybrid system, you need CUDA version 12.1 or later and the corresponding version of PyTorch.
-
-## Sampling
-
-Sampling works in the same way as HuggingFace. For sampling, you have options like top_p, top_k, temperature, and repetition penalty. Please refer to the HuggingFace documentation for explanations of each option. Additionally, the `generate` function allows you to directly control randomness using the seed argument. If `do_smaple` is `False`, LPU does not perform sampling and uses greedy method.
-
-| Sampling Arguments | Description |
-|-|-|
-| `top_p` | Top-P sampling. Default value is `0.7` |
-| `top_k` | Top-K sampling. Default value is `1` |
-| `temperature` | Smoothing the logit distribution. Defualt value is `1.0` |
-| `repetition_penalty` | Give penlaty to logits. Default value is `1.2` |
-
-## Streaming Token Generation
-
-HyperDex supports streaming token generation in a similar manner to HuggingFace. You can activate it by passing the TextStreamer module as an argument to the `generate` function.
-
-```python
-# Immport HyperDex transformers
-from hyperdex.transformers import AutoModelForCausalLM
-from hyperdex.transformers import AutoTokenizer
-from hyperdex.transformers import TextStreamer
-
-# Path to hyperdex checkpoint
-hyperdex_ckpt = "/path/to/llama-7b"
 
 # Load tokenzier and model
-tokenizer = AutoTokenizer.from_pretrained(model_id=hyperdex_ckpt)
-model = AutoModelForCausalLM.from_pretrained(model_id=hyperdex_ckpt, device_map={"lpu": 1})
-# Config streamer module
-streamer = TextStreamer(tokenizer, skip_special_tokens=True)
-```
+tokenizer = AutoTokenizer.from_pretrained("llama-7b")
+model = AutoModelForCausalLM.from_pretrained("llama-7b", device_map={"lpu": 1})
 
-Since the `TextStreamer` module includes the process of decoding through the `tokenizer` and printing internally, you only need to call the `generate` function.
-
-```python
-# Input text
-inputs = "Hello world!"
-
-# 1. Encdoe input text to input token ids
+# Text Generation
 input_ids = tokenizer.encode("Hello world!", return_tensors="np")
-# 2. Generate streaming output token ids with LPU™
-model.generate(
-  inputs,
-  max_length=1024,
-  # Sampling
-  do_sample=True,
-  top_p=0.7,
-  top_k=50,
-  temperature=1.0,
-  repetition_penalty=1.2,
-  # Streaming
-  streamer=streamer
-)
+output_ids = model.generate(input_ids, max_length=1024, do_sample=False)
+outputs = tokenizer.decode(input_ids)
 ```
 
-## How to use streaming with other Application?
+The tokenizer is responsible for all the preprocessing the pretrained model expects, and can be called directly on a single string (as in the above examples) or a list. It will output a dictionary that you can use in downstream code or simply directly pass to your model using the `generate` API.
 
-HyperDex utilizes the `yield` keyword in Python to enable streaming for use in other applications. When you call the `generate_yield` function, it returns using `yield`, making it easy to use in other Python applications.
 
-```python
-# Config streamer module with disable print to activate yield mode
-streamer = TextStreamer(tokenizer, use_print=False, skip_special_tokens=True)
+!!! note
+    To run the above steps, you must first install the `hyperdex-python` package using pip. For detailed instructions on the installation process, please refer to [Python API]() page of the documentation.​
 
-# Input text
-inputs = "Hello world!"
+## Main features
 
-# 1. Encdoe input text to input token ids
-input_ids = tokenizer.encode("Hello world!", return_tensors="np")
-# 2. Generate streaming output token ids with LPU™
-output_ids = model.generate_yield(
-  inputs,
-  max_length=1024,
-  # Sampling
-  do_sample=True,
-  top_p=0.7,
-  top_k=50,
-  temperature=1.0,
-  repetition_penalty=1.2,
-  # Streaming
-  streamer=streamer
-)
-
-# Use outputs_ids which type is generator
-```
+ - APIs of `hyperdex.transformers` are similar to HuggingFace, which are easy to integrate with various LLM applications.
+ - Fast model loading scheme with custom checkpoint format
+ - Streaming text geneartion

@@ -8,45 +8,10 @@ Copyright 2023 The HyperAccel. All rights reserved.
     <br>
 </p>
 
-Provides an implementation of python package for HyperAccel LPU™, with a focus on performance and versatility.
+**HyperDex SDK** is designed to transform the way deep learning models are deployed on **HyperAccel’s LPU** architecture, delivering a balance of high performance and energy efficiency. Whether you’re working with models built in HuggingFace LLM models, HyperDex ensures a smooth transition to the LPU, allowing you to focus on innovation rather than infrastructure.
 
-## Quick Start
-This guide shows how to use our LPU and sofware stack to:
-- run offline LLM optimized inference on a dataset
-- software development kit for easy model compilation
-- chatbot demos with HyperAccel Orion server
+Our SDK offers everything you need in one stack—compiler, runtime, and drivers—providing a straightforward solution to integrate your pre-trained models into production environments. The unique efficiency of the LPU minimizes the need for extensive manual optimization, allowing you to accelerate deployment without compromising on performance.
 
-## Installation
+With **HyperDex**, deployment becomes simpler, empowering you to fine-tune your models and unlock the full potential of LPU technology. From enhanced power savings to robust processing capabilities, HyperDex brings flexibility and speed to your machine learning workflows.
 
-This repository is tested on Python 3.9+, PyTorch 2.0+ and HuggingFace Transformers 4.31+.
-HyperDex can be installed using pip as follows:
-
-```bash
-pip install hyperdex-python
-```
-
-## Example
-
-Similar to [HuggingFace transformer](https://huggingface.co/docs/transformers/index) package, HyperDex uses an `AutoModelForCausalLM` module to load the Transformers. To load the model parameters, you can simply give the path of the HyperDex model checkpoint.
-
-```python
-from hyperdex.transformers import AutoModelForCausalLM
-from hyperdex.transformers import AutoTokenizer
-
-# Load tokenzier and model
-tokenizer = AutoTokenizer.from_pretrained("llama-7b")
-model = AutoModelForCausalLM.from_pretrained("llama-7b", device_map={"lpu": 1})
-
-# Text Generation
-input_ids = tokenizer.encode("Hello world!", return_tensors="np")
-output_ids = model.generate(input_ids, max_length=1024, do_sample=False)
-outputs = tokenizer.decode(input_ids)
-```
-
-The tokenizer is responsible for all the preprocessing the pretrained model expects, and can be called directly on a single string (as in the above examples) or a list. It will output a dictionary that you can use in downstream code or simply directly pass to your model using the `generate` API.
-
-## Main features
-
- - APIs of `hyperdex.transformers` are similar to HuggingFace, which are easy to integrate with various LLM applications.
- - Fast model loading scheme with custom checkpoint format
- - Streaming text geneartion
+For detailed guidance on using the **HyperDex SDK**, please [contact to us](mailto:contact@hyperaccel.ai). If you need any assistance, our team is here to support you every step of the way.

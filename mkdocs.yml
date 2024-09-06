@@ -1,7 +1,7 @@
 site_name: HyperDex Software Stack
 theme:
   name: material
-  logo: images/logo.png
+  logo: images/logo_white.png
   favicon: images/favicon.png
   palette:
     primary: black
@@ -37,28 +37,21 @@ markdown_extensions:
 nav:
   - Getting Started:
     - Installation Guide: install_guide.md
-    - Quick Start with vLLM(WIP): vllm_python.md
-    - Quick Start with HuggingFace: quick_start.md
+    - Quick Start with Python: quick_start.md
   - Software: 
-    - About HyperDex:
-      - HyperDex SDK: hyperdex_sdk.md
-      - Supported Models: supported_models.md
+    - Overview: overview.md
     - API:
-      - vLLM API(WIP): vllm_api.md
-      - HuggingFace API(WIP): huggingface_api.md
-      - OpenAI API(WIP): openai_api.md
+      - Python API: python_api.md
     - Serving:
+      - HuggingFace TGI Compatible Server: tgi_serve.md
       - Deploying with Docker: docker.md
-      - Serving With vLLM(WIP): vllm_serving.md
-      - Serving With OpenAI(WIP): openai_serving.md
-      - Serving with TGI: serving.md
-      - Serving with ChatUI: chatui.md
+    - Models:
+      - Model Compilation: model_compile.md
+      - Supported Models: supported_models.md
   - About LPU:
-    - Performance:
-      - LPU Performance(WIP): lpu_performance.md
-      - Hybrid Performance(WIP): hybrid_performance.md
+    - Chat-UI with LPU: chat_ui.md
+    - Trouble-Shoots: troubleshooting.md 
     - Q&A: 
-      - Troubleshooting(Prev): troubleshooting.md 
       - About Server: Q_server.md
       - About Device: Q_device.md
       - About Software: Q_software.md

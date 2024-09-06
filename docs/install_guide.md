@@ -2,63 +2,25 @@
 Copyright 2024 The HyperAccel Inc. All rights reserved.
 -->
 
-HyperDex SDK consists of compiler stack and runtime stack.
+Since the **LPU** is based on [Xilinx’s Alveo FPGA](https://www.amd.com/ko/products/accelerators/alveo/u55c/a-u55c-p00g-pq-g.html#get-started), using it requires the installation of [Xilinx drivers and the Xilinx Runtime (XRT)](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/alveo/u55c.html) software. In addition to these, HyperAccel has developed its own **HyperDex Runtime Library (HRT)** to efficiently run hardware optimized for large language models (LLM). This runtime allows the LPU to fully utilize its hardware capabilities, providing enhanced performance for deep learning models.
 
+!!! note
+    Since the HyperDex Runtime Library is linked with the Xilinx Runtime (XRT), it is important to install the appropriate versions of both HRT and XRT depending on the Linux kernel version in use. Currently, the HRT supports RHEL-7/8 and Ubuntu-22.04-LTS, ensuring compatibility with these platforms for optimal performance
+
+**HyperDex Compiler** also plays a crucial role in this ecosystem by offering one-click compilation for HuggingFace models, allowing them to seamlessly adapt to the LPU architecture. This enables pre-trained models to be converted into a format optimized for inference on LPU-based hardware with minimal effort.
+
+To operate the LPU, all three components (**XRT, HRT and Compiler**) must be installed on your server. These software stacks are available as both RPM and DEB packages, making them easy to install depending on your operating system.
+
+- Xilinx Runtime Library (`rpm`/`deb` package)
 - HyperDex Runtime Library (`rpm`/`deb` package)
-- HyperDex Compiler Library (`whl pacakge`)
+- HyperDex Compiler Library (`rpm`/`deb` package)
+
+!!! note
+    For the Docker setup we will discuss later, the installation of the XRT is also required. You can find more detailed instructions on how to install XRT through this [link](https://xilinx.github.io/XRT/master/html/index.html).
 
 Refer to the step-by-step installation guide provided below.
 Note that you need an HyperDex portal account to proceed the installation.
 Please [contact](mailto:contact@hyperaccel.ai) us for more information.
 
-### Step 1. HyperDex Runtime Library (HRT)
-
-!!! note
-    `Step 1`. `HRT` is intended for **on-premise server** users, and to install the `HRT`, users need root privileges on the server.
-    Typically, the stable version of the `HRT` is already installed on the **cloud server** you are currently using.
-    If you can see the HyperAccel NPU devices by executing the command `ls /dev/xfpga*`, then you can skip `Step 1`.
-    `HRT` and proceed directly to `Step 2`. `HyperDex Compiler`.
-
-<!-- 
-Provides an implementation of python package for HyperAccel LPU™, with a focus on performance and versatility.
-
-## Quick Start
-This guide shows how to use our LPU and sofware stack to:
-- run offline LLM optimized inference on a dataset
-- software development kit for easy model compilation
-- chatbot demos with HyperAccel Orion server
-
-## Installation
-
-This repository is tested on Python 3.9+, PyTorch 2.0+ and HuggingFace Transformers 4.31+.
-HyperDex can be installed using pip as follows:
-
-```bash
-pip install hyperdex-python
-```
-
-## Example
-
-Similar to [HuggingFace transformer](https://huggingface.co/docs/transformers/index) package, HyperDex uses an `AutoModelForCausalLM` module to load the Transformers. To load the model parameters, you can simply give the path of the HyperDex model checkpoint.
-
-```python
-from hyperdex.transformers import AutoModelForCausalLM
-from hyperdex.transformers import AutoTokenizer
-
-# Load tokenzier and model
-tokenizer = AutoTokenizer.from_pretrained("llama-7b")
-model = AutoModelForCausalLM.from_pretrained("llama-7b", device_map={"lpu": 1})
-
-# Text Generation
-input_ids = tokenizer.encode("Hello world!", return_tensors="np")
-output_ids = model.generate(input_ids, max_length=1024, do_sample=False)
-outputs = tokenizer.decode(input_ids)
-```
-
-The tokenizer is responsible for all the preprocessing the pretrained model expects, and can be called directly on a single string (as in the above examples) or a list. It will output a dictionary that you can use in downstream code or simply directly pass to your model using the `generate` API.
-
-## Main features
-
- - APIs of `hyperdex.transformers` are similar to HuggingFace, which are easy to integrate with various LLM applications.
- - Fast model loading scheme with custom checkpoint format
- - Streaming text geneartion -->
+!!! warning
+    We are currently in the process of building the **HyperDex Portal**, but for now, package files are being distributed directly by our team. The installation process after receiving the packages remains the same, so please follow the standard procedure. 
