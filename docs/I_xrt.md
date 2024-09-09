@@ -1,4 +1,5 @@
 To use the LPU effectively, installing the Xilinx Runtime (XRT) software is essential. XRT ensures smooth integration with Xilinx's Alveo FPGA, optimizing software-hardware communication for peak performance. It also supports the HyperDex Runtime Library (HRT) and ensures compatibility with Centos-7, Ubuntu 22.04 LTS, Rocky 8.4.
+    3. `hyperdex-net`
 
 Before starting the installation, make sure that the LPU is properly connected to the device. Then, refer to the step-by-step installation guide provided below. To proceed, you will need to download the necessary packages from the [Xilinx website](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/alveo/u55c.html).
 
@@ -111,11 +112,11 @@ For Each-based systems (e.g. Centos-7, Ubuntu 22.04 LTS, Rocky 8.4
 ```
 
 ### Step 3. Cold Reboot
-A cold reboot is required after installing the Xilinx firmware to ensure the system initializes and applies the updated firmware to the FPGA hardware.
+A cold reboot is required after installing the Xilinx firmware to ensure the system initializes and applies the **updated firmware to the FPGA hardware**.
 
 The FPGA may appear as two logical devices. This happens because the FPGA is operating in dual mode, with each logical device assigned to handle different tasks, such as hardware acceleration and general-purpose processing.
 
-After applying the shell, the Device Ready status is marked as Yes.
+After applying the shell, the Device Ready status is marked as "Yes".
 ```text
 Devices present
 BDF             :  Shell                            Platform UUID        Device ID Device Ready*
