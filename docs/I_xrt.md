@@ -1,5 +1,4 @@
 To use the LPU effectively, installing the Xilinx Runtime (XRT) software is essential. XRT ensures smooth integration with Xilinx's Alveo FPGA, optimizing software-hardware communication for peak performance. It also supports the HyperDex Runtime Library (HRT) and ensures compatibility with Centos-7, Ubuntu 22.04 LTS, Rocky 8.4.
-    3. `hyperdex-net`
 
 Before starting the installation, make sure that the LPU is properly connected to the device. Then, refer to the step-by-step installation guide provided below. To proceed, you will need to download the necessary packages from the [Xilinx website](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/alveo/u55c.html).
 
