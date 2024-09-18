@@ -46,8 +46,10 @@ nav:
       - Overview: overview.md
       - API:
           - Python API: python_api.md
+          - vLLM API: vllm_api.md
       - Serving:
           - HuggingFace TGI Compatible Server: tgi_serve.md
+          - vLLM Server: vllm_serve.md
           - Deploying with Docker: docker.md
       - Models:
           - Model Compilation: model_compile.md
