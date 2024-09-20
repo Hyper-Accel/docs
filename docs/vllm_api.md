@@ -2,7 +2,7 @@
 Copyright 2024 The HyperAccel Inc. All rights reserved.
 -->
 
-HyperDex supports the vLLM framework to run on LPU(LLM Processing Unit). As you know, the vLLM framework officially supports a variety of hardware, including GPU, TPU, and XPU. HyperDex has its own branch of vLLM with a backend specifically designed for LPU, making it very easy to use. If your system is already using vLLM, you can switch hardware from GPU to LPU without changing any code. Below, we'll explain how to install and use this setup.
+HyperDex supports the vLLM framework to run on LPU(LLM Processing Unit). As you know, the vLLM framework officially supports a variety of hardware including GPU, TPU, and XPU. HyperDex has its own branch of vLLM with a backend specifically designed for LPU, making it very easy to use. If your system is already using vLLM, you can switch hardware from GPU to LPU without changing any code. Then, let's jump into the hyperdex-vllm!
 
 
 ### Requirements
@@ -26,7 +26,7 @@ $ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-vllm
 
 ## Text Generation with HyperAccel LPU™
 
-HyperDex allows you to output tokens using a function similar to vLLM's `generate` function. Therefore, you can easily generate tokens as shown in the example below.
+HyperDex-vLLM generates tokens very similar to vLLM's `generate` function, enabling you ro easily generate tokens as demonstrated in the example below. Ensure that **device="fpga"**, and **num_lpu_devices=1** are set.
 
 ```python linenums="1"
 from vllm import LLM, SamplingParams
@@ -35,8 +35,8 @@ from vllm import LLM, SamplingParams
 prompts = ["Hello, my name is"]
 sampling_params = SamplingParams(temperature=0.8, top_p=0.95, top_k=1, min_tokens=30, max_tokens=30)
 
-# Create an LLM.
-llm = LLM(model="TinyLlama/TinyLlama-1.1B-Chat-v1.0", device="fpga", tensor_parallel_size=1)
+# Create an LLM
+llm = LLM(model="TinyLlama/TinyLlama-1.1B-Chat-v1.0", device="fpga", num_lpu_devices=1)
 
 # Generate texts from the prompts. 
 outputs = llm.generate(prompts, sampling_params)
@@ -48,9 +48,19 @@ for output in outputs:
     print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}")
 ```
 
-## LPU-GPU Hybrid System (WIP)
+## GPU-LPU Hybrid System
 
-TODO(hyunjun): I need one more argument to transfer the number of GPUs to use
+HyperDex supports a heterogeneous GPU-LPU hardware system for executing large language models (LLM). Each hardware type offers distince strengths: GPU excel in large-scale parallel computations. while LPU is designed to fully utilize a memory bandwidth. 
+
+Since the prefill stage is compute-bound and the decode stage is memory-bound, the hybrid system processes prefill stage using a GPU, and decode stage using a LPU. This approach sighificantly boosts LLM performance!
+
+To enable the hybrid system, simply add the option **num_gpu_devices=1**.
+
+```python linenums="1"
+# Create an LLM.
+llm = LLM(model="TinyLlama/TinyLlama-1.1B-Chat-v1.0", device="fpga", num_lpu_devices=1, **num_gpu_devices=1**)
+```
+
 
 ## Option for Sampling Params
 
@@ -63,21 +73,20 @@ Sampling Params refer to setting that control how a model generates text. vLLM s
 | `top_k`               | Top-K sampling. Default value is `1`                                          |
 | `temperature`         | Smoothing the logit distribution. Defualt value is `1.0`                      |
 | `repetition_penalty`  | Give penlaty to logits. Default value is `1.2`                                |
-| `stop(WIP)`           | Token ID that signals the end of generation. Default value is `eos_token_id`  |
+| `stop     `           | Token ID that signals the end of generation. Default value is `eos_token_id`  |
 
 ## Option for LLM Engine
 
 LLM Engine is a core component of vLLM because it performs various functions. For example, it initializes hardware, manages hardware resources, and schedules requests.
 
 
-| LLM Engine Arguments    | Description                                                                   |
+| LLM Engine Arguments    | Description                                                                 |
 |-----------------------|-------------------------------------------------------------------------------|
 | `model`               | Name of path of the huggingface model to use. Default: "facebook/opt-125m"    |
-| `device`              | Device type for vLLM execution. Default: "fpga" (WIP)                         |
-| `tensor-parallel-size`| Number of tensor parallel replicas. Default: 1                                |
-| `tokenizer`           |   Name of path of the huggingface tokenizer to use. If unspecified, model name of path will be used   |
-| `trust-remote-code`   |   Trust remote code from huggingface. Default: False                         |
+| `device`              | Device type for vLLM execution. Default: "cuda"                               |
+| `num_lpu_devices`     | Number of LPU to compute in parallel. Default: 1                              |
+| `num_gpu_devices`     | Number of GPU to compute in parallel. Default: 0                              |
+| `tokenizer`           | Name of path of the huggingface tokenizer to use. If unspecified, model name of path will be used   |
+| `trust-remote-code`   | Trust remote code from huggingface. Default: False                            |
 
-
-## Streaming Token Generation (WIP)
 

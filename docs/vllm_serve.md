@@ -6,7 +6,7 @@ hyperdex-vllm provides an HTTP server that implements vLLM API. You can execute 
 
 ```shell linenums="1"
 $ python -m vllm.entrypoints.api_server --model facebook/opt-1.3b \
-        --device fpga --tensor-parallel-size 1 --stream
+        --device fpga --num_lpu_devices 1
 
 ... OMISSION ...
 
@@ -22,9 +22,10 @@ INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 |-----------------------|-------------------------------------------------------------------------------|
 | `model`               | Name of path of the huggingface model to use. Default: "facebook/opt-125m"    |
 | `device`              | Device type for vLLM execution. Default: "fpga" (WIP)                         |
-| `tensor-parallel-size`| Number of tensor parallel replicas. Default: 1                                |
-| `tokenizer`           |   Name of path of the huggingface tokenizer to use. If unspecified, model name of path will be used   |
-| `trust-remote-code`   |   Trust remote code from huggingface. Default: False                         |
+| `num_lpu_devices`     | Number of LPU to compute in parallel. Default: 1                              |
+| `num_gpu_devices`     | Number of GPU to compute in parallel. Default: 0                              |
+| `tokenizer`           | Name of path of the huggingface tokenizer to use. If unspecified, model name of path will be used   |
+| `trust-remote-code`   | Trust remote code from huggingface. Default: False                           |
 
 
 ### Client
@@ -32,6 +33,11 @@ INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 To call the server, you can use the client example provided in `vllm/examples` ensuring that `use_beam_search=False`.
 
 ```shell linenums="1"
+python lpu_client.py --stream
+```
+
+```shell linenums="1"
+# lpu_client.py
 import argparse
 import json
 from typing import Iterable, List
@@ -117,9 +123,13 @@ INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 
 ### Client
 
-To call the server, you can use OpenAI Python client library, or any other HTTP client. 
+To call the server, you can use OpenAI Python client library, or any other HTTP client. Change stream option if you want.
 
 ```shell linenums="1"
+python lpu_openai_client.py
+```
+```shell linenums="1"
+#python lpu_openai_client.py
 from openai import OpenAI
 
 # Modify OpenAI's API key and API base to use vLLM's API server.
