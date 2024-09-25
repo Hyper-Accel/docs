@@ -4,20 +4,17 @@ Copyright 2024 The HyperAccel Inc. All rights reserved.
 
 HyperDex provides a Python API designed to make running workloads on the LPU both easy and efficient. The Python API uses function calls similar to those found in HuggingFace’s [transformers](https://huggingface.co/docs/transformers/index) library, allowing users familiar with HuggingFace to quickly adapt to and utilize the HyperDex system. This enables existing HuggingFace users to seamlessly integrate HyperDex into their workflows without a steep learning curve.​
 
-## Installation
 
-!!! note
-    To run the `LPU-GPU hybrid system`, you need to have `CUDA 12.1` installed on your system. Additionally, since the GPU utilizes `PyTorch` to run LLMs, it is recommended to install `torch version 2.4.0 or later` to ensure optimal compatibility and performance.​
 
 ### Requirements
 
 * **OS**: Ubuntu 22.04 LTS, Rocky 8.4
 * **Python**: 3.9 ~ 3.11
 * [Xilinx Runtime Library](./install_guide.md)
-* [HyperDex Runtime & Compiler stack](./install_guide.md)
+* [HyperDex Runtime & Compiler stack](./install_hyperdex.md)
 
 ### Install with pip
-You can install `hyperdex-python` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
+You can install `hyperdex-transformers` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
 ```python linenums="1" hl_lines="5 6"
 $ # (Recommended) Create a new conda environemnt.
@@ -25,7 +22,7 @@ $ conda create -n hdex-env python=3.10 -y
 $ conda activate hdex-env
 
 $ # Install HyperDex-Python
-$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-python
+$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-transformers
 ```
 
 ## Text Generation with HyperAccel LPU™
@@ -72,6 +69,9 @@ print(outputs)
 ## LPU-GPU Hybrid System
 
 Starting from version 1.3.2, HyperDex-Python supports the LPU-GPU hybrid system. The GPU, which has relatively higher computing power, handles the Prefill part of the Transformer, while the LPU, which efficiently utilizes memory bandwidth, processes the Decode part. The Key-Value transfer between Prefill and Decode can be performed without overhead using HyperDex's proprietary technology. You can select the number of devices to use for both GPU and LPU through the `device_map` option.
+
+!!! note
+    To run the `LPU-GPU hybrid system`, you need to have `CUDA 12.1` installed on your system. Additionally, since the GPU utilizes `PyTorch` to run LLMs, it is recommended to install `torch version 2.4.0 or later` to ensure optimal compatibility and performance.​
 
 ```python linenums="1" hl_lines="10"
 # Immport HyperDex transformers

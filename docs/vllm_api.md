@@ -2,26 +2,29 @@
 Copyright 2024 The HyperAccel Inc. All rights reserved.
 -->
 
-HyperDex supports the vLLM framework to run on LPU(LLM Processing Unit). As you know, the vLLM framework officially supports a variety of hardware including GPU, TPU, and XPU. HyperDex has its own branch of vLLM with a backend specifically designed for LPU, making it very easy to use. If your system is already using vLLM, you can switch hardware from GPU to LPU without changing any code. Then, let's jump into the hyperdex-vllm!
+HyperDex supports the vLLM framework to run on LPU(LLM Processing Unit). As you know, the vLLM framework officially supports a variety of hardware including GPU, TPU, and XPU. HyperDex has its own branch of vLLM with a backend specifically designed for LPU, making it very easy to use. If your system is already using vLLM, you can switch hardware from GPU to LPU without changing any code.
 
 
 ### Requirements
 
 * **OS**: Ubuntu 22.04 LTS, Rocky 8.4
 * **Python**: 3.9 ~ 3.11
+* **Torch**: 2.4.0 ~
 * [Xilinx Runtime Library](./install_guide.md)
 * [HyperDex Runtime & Compiler stack](./install_guide.md)
 
 ### Install with pip
-You can install `hyperdex-vllm`(WIP) using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
+You can install `hyperdex-vllm` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
 ```python linenums="1" hl_lines="5 6"
 $ # (Recommended) Create a new conda environemnt.
 $ conda create -n hdex-env python=3.10 -y
 $ conda activate hdex-env
 
-$ # Install HyperDex-Python
+$ # Install HyperDex-vLLM
 $ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-vllm
+$ # Install HyperDex-vLLM source code
+$ git clone git@github.com:Hyper-Accel/vllm.git
 ```
 
 ## Text Generation with HyperAccel LPU™
@@ -29,6 +32,8 @@ $ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-vllm
 HyperDex-vLLM generates tokens very similar to vLLM's `generate` function, enabling you ro easily generate tokens as demonstrated in the example below. Ensure that **device="fpga"**, and **num_lpu_devices=1** are set.
 
 ```python linenums="1"
+# You can see this file in our vLLM repo. (vllm/examples/lpu_inference.py)
+
 from vllm import LLM, SamplingParams
 
 # Create prompts and a sampling params object.
