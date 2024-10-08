@@ -4,7 +4,7 @@ HyperDex supports a variety of generative Transformer models in [HuggingFace Tra
 
 |**Architecture**         |**Models**                             |**Example HuggingFace Models**                           |**Hybrid**       |
 |-------------------------|---------------------------------------|---------------------------------------------------------|-----------------|
-|`CohereForCausalLM`      |Cohere                                 |`CohereForAI/c4ai-command-r-v01`, etc.                   |:material-close: |
+|`CohereForCausalLM`      |Cohere                                 |`CohereForAI/c4ai-command-r-v01`, etc.                   |:material-check: |
 |`ExaoneForCausalLM`      |EXAONE                                 |`LGAI-EXAONE/EXAONE-3.0-7.8B`, etc.                      |:material-close: |
 |`FalconForCausalLM`      |Falcon                                 |`tiiuae/falcon-7b`, `tiiuae/falcon-40b`, etc.            |:material-close: |
 |`GemmaForCausalLM`       |Gemma                                  |`google/gemma-2b`, `google/gemma-7b`, etc.               |:material-close: |

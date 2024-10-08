@@ -23,4 +23,7 @@ Note that you need an HyperDex portal account to proceed the installation.
 Please [contact](mailto:contact@hyperaccel.ai) us for more information.
 
 !!! warning
-    We are currently in the process of building the **HyperDex Portal**, but for now, package files are being distributed directly by our team. The installation process after receiving the packages remains the same, so please follow the standard procedure. 
+    We are currently in the process of building the **HyperDex Portal**, but for now, package files are being distributed directly by our team. The installation process after receiving the packages remains the same, so please follow the standard procedure.
+
+- [Install XRT](install_xrt.md)
+- [Install HRT](install_hyperdex.md)

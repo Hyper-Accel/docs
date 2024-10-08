@@ -20,8 +20,8 @@
 ### Install with pip
 You can install `hyperdex-serve` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
-```shell linenums="1" hl_lines="5 6 7"
-$ # (Recommended) Create a new conda environemnt.
+```shell linenums="1" hl_lines="6 7"
+$ # (Recommended) Create a new conda environment.
 $ conda create -n hdex-env python=3.10 -y
 $ conda activate hdex-env
 
@@ -53,7 +53,7 @@ usage: hdex-serve [-h] [--host HOST] [--port PORT]
 
 ### Serving Model
 
-Below is an example of serving a HuggingFace model. The model to be served must be pre-compiled using the [**HyperDex Compiler SDK**](./hyperdex_sdk.md).
+Below is an example of serving a HuggingFace model. The model to be served must be pre-compiled using the [**HyperDex Compiler SDK**](./model_compile.md).
 
 ```shell linenums="1"
 $ hdex-serve \
@@ -78,7 +78,7 @@ INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 
 | Arguments                                         | Description                                                                                                   |
 |---------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| `-h, --help `                                     | show this help message and exit                                                                               |
+| `-h, --help `                                     | show help message and exit                                                                               |
 | `--host HOST `                                    | host name                                                                                                     |
 | `--port PORT `                                    | port number                                                                                                   |
 | `--allow-credentials `                            | allow credentials                                                                                             |

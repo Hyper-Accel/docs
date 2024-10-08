@@ -1,20 +1,15 @@
 **HyperDex-Compiler SDK** helps to run LPUs using Hugging Face's checkpoints. The following content explains how to transform HuggingFace models to be executable on LPUs.
 
-## Installation
-
-!!! note
-    **HyperDex-Compiler SDK** is a Python package that internally relies on the **HyperDex-Python** package. Therefore, the required installation environment is the same as that of **HyperDex-Python**.
 
 ### Requirements
 
 * **OS**: Ubuntu 22.04 LTS, Rocky 8.4
 * **Python**: 3.9 ~ 3.11
-* [Xilinx Runtime Library](./install_guide.md)
-* [HyperDex Runtime & Compiler stack](./install_guide.md)
-* [HyperDex-Python](./python_api.md) Package
+* [Xilinx Runtime Library](./install_xrt.md)
+* [HyperDex Runtime & Compiler stack](./install_hyperdex.md)
 
 ### Install with pip
-You can install `hyperdex-sdk` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
+You can install `hyperdex-compiler` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
 ```shell linenums="1" hl_lines="5 6 7"
 $ # (Recommended) Create a new conda environemnt.
@@ -22,8 +17,8 @@ $ conda create -n hdex-env python=3.10 -y
 $ conda activate hdex-env
 
 $ # Install HyperDex-Python and HyperDex-Compiler SDK
-$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-python
-$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-sdk
+$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-transformers
+$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-compilers
 ```
 
 ## Compile HuggingFace-Hub Model

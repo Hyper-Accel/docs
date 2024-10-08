@@ -12,5 +12,5 @@
     자체 개발한 명령어 및 FPGA 명령어 공유 드립니다.
     `hyperdex-smi`를 사용하여 `nvidia-smi`와 같은 방식으로 LPU의 동작 상태를 확인하실 수 있습니다. `hyperdex-reset`을 사용하여 디바이스가 데드락 상태에 빠졌을 때 LPU를 초기화할 수 있습니다. `xbutil examine`을 사용하여 LPU가 잘 장착되어 있는지 확인하실 수 있습니다.
 
-    자세한 내용은 [Trouble-Shooting](./troubleshooting.md) 페이지를 참고 부탁드립니다.
+    자세한 내용은 [Trouble-Shooting](./trouble_shoot.md) 페이지를 참고 부탁드립니다.
 

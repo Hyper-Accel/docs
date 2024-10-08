@@ -1,3 +1,4 @@
+
 ## Text Generation with HyperAccel LPU™
 
 Similar to [HuggingFace transformer](https://huggingface.co/docs/transformers/index) package, HyperDex uses an `AutoModelForCausalLM` module to load the Transformers. To load the model parameters, you can simply give the path of the HyperDex model checkpoint.
@@ -20,10 +21,14 @@ The tokenizer is responsible for all the preprocessing the pretrained model expe
 
 
 !!! note
-    To run the above steps, you must first install the `hyperdex-python` package using pip. For detailed instructions on the installation process, please refer to [Python API]() page of the documentation.​
+    To run the above steps, you must first install the `hyperdex-python` package using pip. For detailed instructions on the installation process, please refer to [Python API](./python_api.md) page of the documentation.​
 
 ## Main features
 
  - APIs of `hyperdex.transformers` are similar to HuggingFace, which are easy to integrate with various LLM applications.
  - Fast model loading scheme with custom checkpoint format
- - Streaming text geneartion
+ - Streaming text generation
+
+## Quick Guide (PDF)
+If you have a server with HyperDex installed, please refer [this PPT](./LPU_user_guide_v1.1.pdf).
+

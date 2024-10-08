@@ -36,26 +36,35 @@ markdown_extensions:
 
 nav:
   - Getting Started:
-    - Installation Guide: install_guide.md
-    - Quick Start with Python: quick_start.md
-  - Software: 
-    - Overview: overview.md
-    - API:
-      - Python API: python_api.md
-    - Serving:
-      - HuggingFace TGI Compatible Server: tgi_serve.md
-      - Deploying with Docker: docker.md
-    - Models:
-      - Model Compilation: model_compile.md
-      - Supported Models: supported_models.md
+      - HyperDex Installation: install_hyperdex.md
+      - Quick Start: quick_start.md
+    #      - Overview: install_guide.md
+    #      - Install XRT: I_xrt.md
+    #      - Install HRT: I_hrt.md
+    #      - Install Compiler: I_compiler.md
+    #  - Quick Start with Python: quick_start.md
+  - Software:
+      - API:
+          - Python API: python_api.md
+          - vLLM API: vllm_api.md
+      - Serving:
+          - TGI Server: tgi_serve.md
+          - vLLM Server: vllm_serve.md
+      - SDK:
+          - Model Compilation: model_compile.md
+          - Supported Models: supported_models.md
+      - Others:
+          - Chat-UI with LPU: chat_ui.md
+        #  - Deploying with Docker(WIP): docker.md
   - About LPU:
-    - Chat-UI with LPU: chat_ui.md
-    - Trouble-Shoots: troubleshooting.md 
-    - Q&A: 
-      - About Server: Q_server.md
-      - About Device: Q_device.md
-      - About Software: Q_software.md
-
+      - Useful Commands: trouble_shoot.md
+    #  - Performance: performance.md
+      - Q&A:
+          - About Server: QA_server.md
+          - About Device: QA_device.md
+          - About Software: QA_software.md
+# Want to add: sw_overview, performance, docker
+# Unsed: install_guide, install_xrt, install_hrt
 copyright: Copyright &copy; 2023 - 2024 HyperAccel Inc.
 extra:
   generator: false
