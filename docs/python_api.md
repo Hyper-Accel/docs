@@ -27,7 +27,7 @@ $ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-transformers
 
 ## Text Generation with HyperAccel LPU™
 
-HyperDex allows you to output tokens using a function similar to HuggingFace's `generate` function. Therefore, you can easily generate tokens as shown in the example below.
+HyperDex allows you to generate output tokens using a function similar to HuggingFace's `generate` function. Therefore, you can easily generate tokens as shown in the example below.
 
 ```python linenums="1"
 # Immport HyperDex transformers
@@ -105,7 +105,7 @@ Sampling works in the same way as HuggingFace. For sampling, you have options li
 HyperDex supports streaming token generation in a similar manner to HuggingFace. You can activate it by passing the TextStreamer module as an argument to the `generate` function.
 
 ```python linenums="1" hl_lines="13"
-# Immport HyperDex transformers
+# Import HyperDex transformers
 from hyperdex.transformers import AutoModelForCausalLM
 from hyperdex.transformers import AutoTokenizer
 from hyperdex.transformers import TextStreamer
@@ -126,7 +126,7 @@ Since the `TextStreamer` module includes the process of decoding through the `to
 # Input text
 inputs = "Hello world!"
 
-# 1. Encdoe input text to input token ids
+# 1. Encode input text to input token ids
 input_ids = tokenizer.encode("Hello world!", return_tensors="np")
 # 2. Generate streaming output token ids with LPU™
 model.generate(
@@ -154,7 +154,7 @@ streamer = TextStreamer(tokenizer, use_print=False, skip_special_tokens=True)
 # Input text
 inputs = "Hello world!"
 
-# 1. Encdoe input text to input token ids
+# 1. Encode input text to input token ids
 input_ids = tokenizer.encode("Hello world!", return_tensors="np")
 # 2. Generate streaming output token ids with LPU™
 output_ids = model.generate_yield(

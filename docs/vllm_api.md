@@ -29,7 +29,7 @@ $ git clone git@github.com:Hyper-Accel/vllm.git
 
 ## Text Generation with HyperAccel LPU™
 
-HyperDex-vLLM generates tokens very similar to vLLM's `generate` function, enabling you ro easily generate tokens as demonstrated in the example below. Ensure that **device="fpga"**, and **num_lpu_devices=1** are set.
+HyperDex-vLLM generates tokens very similar to vLLM's `generate` function, enabling you to easily generate tokens as demonstrated in the example below. Ensure that **device="fpga"**, and **num_lpu_devices=1** are set.
 
 ```python linenums="1"
 # You can see this file in our vLLM repo. (vllm/examples/lpu_inference.py)
@@ -55,7 +55,7 @@ for output in outputs:
 
 ## GPU-LPU Hybrid System
 
-HyperDex supports a heterogeneous GPU-LPU hardware system for executing large language models (LLM). Each hardware type offers distince strengths: GPU excel in large-scale parallel computations. while LPU is designed to fully utilize a memory bandwidth. 
+HyperDex supports a heterogeneous GPU-LPU hardware system for executing large language models (LLM). Each hardware type offers distinct strengths: GPU excels in large-scale parallel computations, while LPU is designed to fully optimize memory bandwidth utilization. 
 
 Since the prefill stage is compute-bound and the decode stage is memory-bound, the hybrid system processes prefill stage using a GPU, and decode stage using a LPU. This approach sighificantly boosts LLM performance!
 
@@ -69,7 +69,7 @@ llm = LLM(model="TinyLlama/TinyLlama-1.1B-Chat-v1.0", device="fpga", num_lpu_dev
 
 ## Option for Sampling Params
 
-Sampling Params refer to setting that control how a model generates text. vLLM supports various sampling params to support various features. But because LPU currently supports limited features, only the sampling params listed belows are supported. We are planning to extend and update our coverage.
+Sampling Params refer to setting that control how a model generates text. vLLM supports various sampling params to support various features. However, due to the current limitations of the LPU, only the sampling parameters listed below are supported. We are planning to extend and update our coverage.
 
 | Sampling Arguments    | Description                                                                   |
 |-----------------------|-------------------------------------------------------------------------------|
@@ -91,7 +91,7 @@ LLM Engine is a core component of vLLM because it performs various functions. Fo
 | `device`              | Device type for vLLM execution. Default: "cuda"                               |
 | `num_lpu_devices`     | Number of LPU to compute in parallel. Default: 1                              |
 | `num_gpu_devices`     | Number of GPU to compute in parallel. Default: 0                              |
-| `tokenizer`           | Name of path of the huggingface tokenizer to use. If unspecified, model name of path will be used   |
+| `tokenizer`           | Name of path of the huggingface tokenizer to use. If not specified, model name of path will be used   |
 | `trust-remote-code`   | Trust remote code from huggingface. Default: False                            |
 
 
