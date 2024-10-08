@@ -53,7 +53,7 @@ usage: hdex-serve [-h] [--host HOST] [--port PORT]
 
 ### Serving Model
 
-Below is an example of serving a HuggingFace model. The model to be served must be pre-compiled using the [**HyperDex Compiler SDK**](./hyperdex_sdk.md).
+Below is an example of serving a HuggingFace model. The model to be served must be pre-compiled using the [**HyperDex Compiler SDK**](./model_compile.md).
 
 ```shell linenums="1"
 $ hdex-serve \
