@@ -38,13 +38,12 @@ nav:
   - Getting Started:
       - HyperDex Installation: install_hyperdex.md
       - Quick Start: quick_start.md
-#          - Overview: install_guide.md
-#          - Install XRT: I_xrt.md
-#          - Install HRT: I_hrt.md
-#          - Install Compiler: I_compiler.md
-#      - Quick Start with Python: quick_start.md
+    #      - Overview: install_guide.md
+    #      - Install XRT: I_xrt.md
+    #      - Install HRT: I_hrt.md
+    #      - Install Compiler: I_compiler.md
+    #  - Quick Start with Python: quick_start.md
   - Software:
-#      - Overview: overview.md
       - API:
           - Python API: python_api.md
           - vLLM API: vllm_api.md
@@ -56,16 +55,16 @@ nav:
           - Supported Models: supported_models.md
       - Others:
           - Chat-UI with LPU: chat_ui.md
-#          - Deploying with Docker(WIP): docker.md
+        #  - Deploying with Docker(WIP): docker.md
   - About LPU:
       - Useful Commands: trouble_shoot.md
-#      - Performance: performance.md
+    #  - Performance: performance.md
       - Q&A:
           - About Server: QA_server.md
           - About Device: QA_device.md
           - About Software: QA_software.md
-#Want to add: sw_overview, performance, docker
-#Unsed: install_guide, install_xrt, install_hrt
+# Want to add: sw_overview, performance, docker
+# Unsed: install_guide, install_xrt, install_hrt
 copyright: Copyright &copy; 2023 - 2024 HyperAccel Inc.
 extra:
   generator: false

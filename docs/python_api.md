@@ -16,7 +16,7 @@ HyperDex provides a Python API designed to make running workloads on the LPU bot
 ### Install with pip
 You can install `hyperdex-transformers` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
-```python linenums="1" hl_lines="5 6"
+```python linenums="1" hl_lines="6"
 $ # (Recommended) Create a new conda environemnt.
 $ conda create -n hdex-env python=3.10 -y
 $ conda activate hdex-env

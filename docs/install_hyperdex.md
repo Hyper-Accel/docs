@@ -14,7 +14,7 @@ Currently, the HRT supports RHEL-8/8 and Ubuntu-22.04-LTS, ensuring compatibilit
 
 You can install `hyperdex python package` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
-```python linenums="1" hl_lines="5 6"
+```python linenums="1" hl_lines="6 7 9"
 $ # (Recommended) Create a new conda environemnt.
 $ conda create -n hdex-env python=3.10 -y
 $ conda activate hdex-env

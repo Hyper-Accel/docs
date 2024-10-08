@@ -20,7 +20,7 @@
 ### Install with pip
 You can install `hyperdex-serve` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
-```shell linenums="1" hl_lines="5 6 7"
+```shell linenums="1" hl_lines="6 7"
 $ # (Recommended) Create a new conda environment.
 $ conda create -n hdex-env python=3.10 -y
 $ conda activate hdex-env

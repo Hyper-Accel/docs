@@ -2,7 +2,7 @@
 Copyright 2024 The HyperAccel Inc. All rights reserved.
 -->
 
-HyperDex supports the vLLM framework to run on LPU(LLM Processing Unit). As you know, the vLLM framework officially supports a variety of hardware including GPU, TPU, and XPU. HyperDex has its own branch of vLLM with a backend specifically designed for LPU, making it very easy to use. If your system is already using vLLM, you can switch hardware from GPU to LPU without changing any code.
+HyperDex supports the vLLM framework to run on LPU. As you know, the vLLM framework officially supports a variety of hardware including GPU, TPU, and XPU. HyperDex has its own branch of vLLM with a backend specifically designed for LPU, making it very easy to use. If your system is already using vLLM, you can switch hardware from GPU to LPU without changing any code.
 
 
 ### Requirements
@@ -16,7 +16,7 @@ HyperDex supports the vLLM framework to run on LPU(LLM Processing Unit). As you 
 ### Install with pip
 You can install `hyperdex-vllm` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
-```python linenums="1" hl_lines="5 6"
+```python linenums="1" hl_lines="6 8"
 $ # (Recommended) Create a new conda environemnt.
 $ conda create -n hdex-env python=3.10 -y
 $ conda activate hdex-env
