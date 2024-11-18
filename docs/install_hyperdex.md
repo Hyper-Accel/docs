@@ -22,14 +22,13 @@ $ conda activate hdex-env
 $ # Install HyperDex Python Package
 $ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-transformers
 $ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-compiler
-$ # (Option)
-$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-vllm
 ```
 
 
-### STEP 3: Install RPM Package
+### STEP 3: Install Device Package
 
-(TBD)
+For security issues, we are directly providing it to those who have inquired.
+>>>>>>> feature/install-guide
 
 
 ### STEP 4: Quick Start

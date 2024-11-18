@@ -9,20 +9,35 @@ HyperDex supports the vLLM framework to run on LPU. As you know, the vLLM framew
 
 * **OS**: Ubuntu 22.04 LTS, Rocky 8.4
 * **Python**: 3.9 ~ 3.11
-* **Torch**: 2.4.0 ~
+* **torch**: 2.4.0+cpu (in LPU only env) or 2.4.0+cu121 (in LPU+GPU env)
 * [Xilinx Runtime Library](./install_guide.md)
 * [HyperDex Runtime & Compiler stack](./install_guide.md)
 
 ### Install with pip
 You can install `hyperdex-vllm` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
+<<<<<<< HEAD
 ```python linenums="1" hl_lines="6 8"
+=======
+```python linenums="1" hl_lines="6 7 10 11 14"
+>>>>>>> feature/install-guide
 $ # (Recommended) Create a new conda environemnt.
 $ conda create -n hdex-env python=3.10 -y
 $ conda activate hdex-env
 
+<<<<<<< HEAD
 $ # Install HyperDex-vLLM
 $ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-vllm
+=======
+$ # Install HyperDex-vLLM in LPU only env
+$ pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cpu
+$ pip install -i https://pypi.hyperaccel.ai/simple vllm==0.6.1+cpu
+
+$ # Install HyperDex-vLLM in LPU+GPU env
+$ pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu121
+$ pip install -i https://pypi.hyperaccel.ai/simple vllm==0.6.1+cu121
+
+>>>>>>> feature/install-guide
 $ # Install HyperDex-vLLM source code
 $ git clone git@github.com:Hyper-Accel/vllm.git
 ```
