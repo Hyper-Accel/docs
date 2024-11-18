@@ -1,34 +1,16 @@
+
 **HyperDex SDK** provides the **HyperDex-Serve** Python package for serving LLMs. HyperDex-Serve allows the **LPU** (or **LPU-GPU Hybrid System**) to be run via a RESTful API. The API follows the same structure as HuggingFace’s widely-used [**Text-Generation-Inference (TGI)**](https://huggingface.co/docs/text-generation-inference/index) API, which is commonly used for serving open-source LLMs.
 
 
-!!! tip
-    Currently, **HyperDex-Serve** does not support the [**OpenAI API**](https://platform.openai.com/docs/guides/chat-completions). However, in the next release, we plan to introduce support for the [**vLLM framework**](https://docs.vllm.ai), which will enable compatibility with the OpenAI API by utilizing vLLM’s OpenAI Compatible Server.
+### Requirements and Install Guide
+Requirements and Install Guide is same as[ Python API](./python_api.md). 
 
-## Installation
 
-!!! note
-    **HyperDex-Serve** is a Python package that internally relies on the **HyperDex-Python** package. Therefore, the required installation environment is the same as that of **HyperDex-Python**.
+### Serving Model
 
-### Requirements
+hyperdex-serve provides an HTTP server that implements TGI API. 
+You can execute the server by the command below.
 
-* **OS**: Ubuntu 22.04 LTS, Rocky 8.4
-* **Python**: 3.9 ~ 3.11
-* [Xilinx Runtime Library](./install_guide.md)
-* [HyperDex Runtime & Compiler stack](./install_guide.md)
-* [HyperDex-Python](./python_api.md) Package
-
-### Install with pip
-You can install `hyperdex-serve` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
-
-```shell linenums="1" hl_lines="6 7"
-$ # (Recommended) Create a new conda environment.
-$ conda create -n hdex-env python=3.10 -y
-$ conda activate hdex-env
-
-$ # Install HyperDex-Python and HyperDex-Serve
-$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-python
-$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-serve
-```
 
 ## Usage
 
