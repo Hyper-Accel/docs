@@ -28,7 +28,6 @@ $ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-compiler
 ### STEP 3: Install Device Package
 
 For security issues, we are directly providing it to those who have inquired.
->>>>>>> feature/install-guide
 
 
 ### STEP 4: Quick Start
