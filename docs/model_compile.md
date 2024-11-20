@@ -23,58 +23,84 @@ $ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-compilers
 
 ## Compile HuggingFace-Hub Model
 
-HyperDex-Compiler SDK provides a CLI-based program. You can use the `--prefix` option to determine the directory path where the model will be downloaded. For large-sized models or private models that are not uploaded to the HuggingFace-Hub, you can manually move them to the specified path and then use the SDK. (i.g. `facebook/opt-1.3b` model would be downloaded to `/path/to/prefix/facebook/opt-1.3b/ckpt`.)
-
+HyperDex-Compiler SDK provides a CLI-based program that converts and compile HyperDex supported models. To refer to the list of models supported by the HyperDex SDK, please visit the following page: [Supported Models](./supported_models.md). Any model in Huggingface that matches the architecture can be converted and run by HyperAccel LPU™. You can easily compile models as shown in the exmaple below using 'AutoCompiler'.
 
 Start the SDK program:
-```shell linenums="1"
-$ hdex-compile --prefix /path/to/prefix
+```python linenums="1" hl_lines="2"
+from hyperdex.tools import AutoCompiler
+model_id = 'facebook/opt-1.3b'
+hdex = AutoCompiler()
+hdex.compile(
+    model_id=model_id,
+    num_device=lpu_device,
+    max_length=4096,
+    low_memory_usage=True,
+    token=HF_TOKEN,
+)
 ```
-After running the program, you can input the necessary information such as the model's ID, the number of devices, and other details according to the program's instructions.
+The model_id can be a id from Huggingface(i.g. [facebook/opt-1.3b](https://huggingface.co/facebook/opt-1.3b)). The model will be installed in ~/.cache/hyperdex/hub. Another option is to spciefy a directory to install the model. Note that the Huggingface model id has be at the end of the directory. HyperDex SDK will download, convert, and save files to run the LPU at the directory described above.
+```python linenums="1"
+model_id = '/opt/hyperdex/models/facebook/opt-1.3b'
+```
 
 Here is an example of running the SDK program for the `facebook/opt-1.3b` model:
-```shell linenums="1" hl_lines="14 30"
-**********************************************************************
-** HyperDex Model SDK Version 1.3.2
-** Copyright (c) 2024 HyperAccel
-**********************************************************************
-
-** Phase-1 : Download model from HuggingFace Hub **
-
-In this phase, download the HuggingFace model and save it to the prefix (=/opt/hyperdex/models).
-ex) facebook/opt-1.3b ==> download at "/opt/hyperdex/models/facebook/opt-1.3b/ckpt"
-
-Please input the model available on Hugging Face from the options below.
-If you are using a custom model, make sure to place it in the prefix path beforehand for it to be usable.
-
-[Option	] Please enter the HuggingFace model id: facebook/opt-1.3b
-[Info	] Download model at /opt/hyperdex/models/facebook/opt-1.3b/ckpt
-
-** Phase-2 : Convert the checkpoint format to HyperDex style **
-
-In this phase, we convert the Hugging Face checkpoint into a format that HyperDex can read.
-The converter output includes both a JSON file and a binary file.
-
-[Info	] Convert the model to HyperDex model format
-[Info	] Save the converted checkpoint at /opt/hyperdex/models/facebook/opt-1.3b/ckpt
-
-** Phase-3 : Generate Optimized Model Mapping **
-
-In this phase, we optimize model mapping for streamlined memory access and efficient model parallelism.
-The result of this optimization process is a binary file.
-
-[Option	] Please enter the number of LPU devices: 1
-[Info	] Optimize the model paramater
-[Info	] Save the optimized data at /opt/hyperdex/models/facebook/opt-1.3b/param
-
-** Phase-4 : Generate Optimized Model Instruction **
-
-In this phase, we analyze the structure of the model to generate optimized instructions.
-We use techniques such as Kernel Fusion and Layer Reordering to make hardware processing more efficient.
-The result of this optimization is a binary file.
-[Info	] Optimize the model instruction
-[Info	] Save the optimized instruction at /opt/hyperdex/models/facebook/opt-1.3b/inst
-[Info	] Exit SDK program
+```shell linenums="1"
+[ INFO ] : ** HyperDex  Model  SDK  Version **
+[ INFO ] : ** Copyright (c) 2024 HyperAccel **
+[ INFO ] : ** Phase-0 : Check supported model **
+[ INFO ] : In this phase, check if given model is supported by HyperDex.
+config.json: 100%|█████████████████████████████████████████████| 653/653
+[ INFO ] : ** Phase-1 : Download model from HuggingFace Hub **
+[ INFO ] : In this phase, download the HuggingFace model and save it to (=/home/members/user/.cache/hyperdex/hub).
+[ INFO ] : Download model at /home/members/user/.cache/hyperdex/hub/facebook/opt-1.3b/ckpt
+pytorch_model.bin: 100%|███████████████████████████████████| 2.63G/2.63G
+generation_config.json: 100%|██████████████████████████████████| 137/137
+tokenizer_config.json: 100%|███████████████████████████████████| 685/685
+vocab.json: 100%|████████████████████████████████████████████| 899k/899k
+merges.txt: 100%|████████████████████████████████████████████| 456k/456k
+special_tokens_map.json: 100%|█████████████████████████████████| 441/441
+Not logged in!
+[ INFO ] : ** Phase-2 : Convert the checkpoint format to HyperDex style **
+[ INFO ] : In this phase, convert the Huggingface checkpoint into HyperDex format.
+[ INFO ] : The output creates both JSON and binary file.
+[ INFO ] : Convert the model to HyperDex model format
+[ INFO ] : Save the converted checkpoint at /home/members/user/.cache/hyperdex/hub/facebook/opt-1.3b/ckpt
+[ INFO ] : ** Phase-3 : Generate Optimized Model Mapping **
+[ INFO ] : In this phase, optimize model mapping for streamlined memory access and efficient model parallelism.
+[ INFO ] : The result of the optimization process is a binary file.
+[ INFO ] : Optimize the model paramater
+[ INFO ] : Save the optimized data at /home/members/user/.cache/hyperdex/hub/facebook/opt-1.3b/param
+[ INFO ] : ** Phase-4 : Generate Optimized Model Instruction **
+[ INFO ] : In this phase, analyze the structure of the model to generate optimized instructions.
+[ INFO ] : Techniques like Kernel Fusion and Layer Reordering techniques are used to make hardware processing more efficient.
+[ INFO ] : The result of the optimization is a binary file.
+[ INFO ] : Optimize the model instruction
+[ INFO ] : Save the optimized instruction at /home/members/user/.cache/hyperdex/hub/facebook/opt-1.3b/inst
+[ INFO ] : Model compile Complete!
 ```
 
-To refer to the list of models supported by the HyperDex SDK, please visit the following page: [Supported Models](./supported_models.md)
+## AutoCompiler.compile( ) Parameters
+
+| Arguments             | Description                                                                                   |
+|-----------------------|-----------------------------------------------------------------------------------------------|
+| `model_id`            | Huggingface model id. Default value is `facebook/opt-1.3b`                                    |
+| `num_device`          | Number of LPU to use. Default value is `1`                                                    |
+| `max_length`          | Maximum length of response. Defualt value is `1`                                              |
+| `low_memory_usage`    | Remove bin/safetensors file to save memory. Default value is `False`(Doesnt' remove)          |
+| `token`               | Huggingface Acess Token. Default value is `None`                                              |
+
+If the model is gated in huggingface like [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1) or [meta-llama/Llama-2-7b-chat-hf](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), user has to get access via huggingface before using. After getting access from the author, HyperDex SDK will download the model. Access token can be passed either by parameter or after running the SDK program like below.
+```shell linenums="1"
+    _|    _|  _|    _|    _|_|_|    _|_|_|  _|_|_|  _|      _|    _|_|_|      _|_|_|_|    _|_|      _|_|_|  _|_|_|_|
+    _|    _|  _|    _|  _|        _|          _|    _|_|    _|  _|            _|        _|    _|  _|        _|
+    _|_|_|_|  _|    _|  _|  _|_|  _|  _|_|    _|    _|  _|  _|  _|  _|_|      _|_|_|    _|_|_|_|  _|        _|_|_|
+    _|    _|  _|    _|  _|    _|  _|    _|    _|    _|    _|_|  _|    _|      _|        _|    _|  _|        _|
+    _|    _|    _|_|      _|_|_|    _|_|_|  _|_|_|  _|      _|    _|_|_|      _|        _|    _|    _|_|_|  _|_|_|_|
+
+    To log in, `huggingface_hub` requires a token generated from https://huggingface.co/settings/tokens .
+Enter your token (input will not be visible):
+```
+
+
+!!! warning
+    When trying to compile model for LPU-GPU Hybrid System, the `low_memory_usage` must be False. This causes error when GPU is running. If a model was compiled with `low_memory_usage`=True, compile again with `low_memory_usage`=False.
