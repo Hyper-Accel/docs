@@ -84,10 +84,12 @@ Not logged in!
 | Arguments             | Description                                                                                   |
 |-----------------------|-----------------------------------------------------------------------------------------------|
 | `model_id`            | Huggingface model id. Default value is `facebook/opt-1.3b`                                    |
+| `token`               | Huggingface Acess Token. Default value is `None`                                              |
 | `num_device`          | Number of LPU to use. Default value is `1`                                                    |
+| `type_device`         | Type of FPGA to use. Default value is `u55c` of AMD. Further types will be supported          |
 | `max_length`          | Maximum length of response. Defualt value is `1`                                              |
 | `low_memory_usage`    | Remove bin/safetensors file to save memory. Default value is `False`(Doesnt' remove)          |
-| `token`               | Huggingface Acess Token. Default value is `None`                                              |
+| `fast_compile`        | Compile missing files for faster use. Default value is `False`(Compile every file)            |
 
 If the model is gated in huggingface like [mistralai/Mistral-7B-v0.1](https://huggingface.co/mistralai/Mistral-7B-v0.1) or [meta-llama/Llama-2-7b-chat-hf](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), user has to get access via huggingface before using. After getting access from the author, HyperDex SDK will download the model. Access token can be passed either by parameter or after running the SDK program like below.
 ```shell linenums="1"
