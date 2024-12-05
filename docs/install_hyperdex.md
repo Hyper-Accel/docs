@@ -9,6 +9,26 @@ Since the **LPU** is based on [AMD’s Alveo FPGA](https://www.amd.com/ko/produc
 
 Currently, the HRT supports RHEL-8/8 and Ubuntu-22.04-LTS, ensuring compatibility with these platforms for optimal performance. Please follow [XRT install guide](./install_xrt.md).
 
+The table below shows the compatibility of **Python**, **CUDA**, and **Torch** versions for the HyperDex package. Please ensure your environment matches one of the supported configurations before installation.
+
+| **Python Version** | **CUDA Version** | **Torch Version**     |
+|---------------------|------------------|------------------------|
+| 3.9                | 12.1, 12.4       | 2.1.0, 2.4.0          |
+| 3.10               | 12.1, 12.4       | 2.1.0, 2.4.0          |
+| 3.11               | 12.1, 12.4       | 2.1.0, 2.4.0          |
+| 3.12               | 12.1             | 2.4.0                 |
+
+---
+
+### Notes:
+- **Python 3.12**:
+  - Torch 2.1.0 is **not supported**.
+  - CUDA 12.4 is **not compatible**.
+- **CUDA Compatibility**:
+  - Torch 2.1.0 does **not support** CUDA 12.4.
+  - Torch 2.4.0 supports both CUDA 12.1 and 12.4.
+
+---
 
 ### STEP 2: Install Python Package
 
