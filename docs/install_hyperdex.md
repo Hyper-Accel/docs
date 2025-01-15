@@ -34,7 +34,7 @@ The table below shows the compatibility of **Python**, **CUDA**, and **Torch** v
 
 You can install `hyperdex python package` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
-```python linenums="1" hl_lines="6 7 9"
+```python
 $ # (Recommended) Create a new conda environemnt.
 $ conda create -n hdex-env python=3.10 -y
 $ conda activate hdex-env
