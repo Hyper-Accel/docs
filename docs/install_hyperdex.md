@@ -13,19 +13,15 @@ The table below shows the compatibility of **Python**, **CUDA**, and **Torch** v
 
 | **Python Version** | **CUDA Version** | **Torch Version**     |
 |---------------------|------------------|------------------------|
-| 3.9                | 12.1, 12.4       | 2.1.0, 2.4.0          |
-| 3.10               | 12.1, 12.4       | 2.1.0, 2.4.0          |
-| 3.11               | 12.1, 12.4       | 2.1.0, 2.4.0          |
+| 3.9                | 12.1, 12.4       | 2.4.0                 |
+| 3.10               | 12.1, 12.4       | 2.4.0                 |
+| 3.11               | 12.1, 12.4       | 2.4.0                 |
 | 3.12               | 12.1             | 2.4.0                 |
 
 ---
 
 ### Notes:
-- **Python 3.12**:
-  - Torch 2.1.0 is **not supported**.
-  - CUDA 12.4 is **not compatible**.
 - **CUDA Compatibility**:
-  - Torch 2.1.0 does **not support** CUDA 12.4.
   - Torch 2.4.0 supports both CUDA 12.1 and 12.4.
 
 ---
@@ -35,13 +31,13 @@ The table below shows the compatibility of **Python**, **CUDA**, and **Torch** v
 You can install `hyperdex python package` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
 ```python
-$ # (Recommended) Create a new conda environemnt.
-$ conda create -n hdex-env python=3.10 -y
-$ conda activate hdex-env
+$ # (Recommended) Create a new virtual environemnt. We recommend to use uv(https://docs.astral.sh/uv/)
+$ curl -LsSf https://astral.sh/uv/install.sh | sh
+$ uv venv --no-project --seed .hdex-env
+$ source .hdex-env/bin/activate
 
 $ # Install HyperDex Python Package
-$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-transformers
-$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-compiler
+$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-toolchain
 ```
 
 
