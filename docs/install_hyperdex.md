@@ -13,7 +13,6 @@ The table below shows the compatibility of **Python**, **CUDA**, and **Torch** v
 
 | **Python Version** | **CUDA Version** | **Torch Version**     |
 |---------------------|------------------|------------------------|
-| 3.9                | 12.1, 12.4       | 2.4.0                 |
 | 3.10               | 12.1, 12.4       | 2.4.0                 |
 | 3.11               | 12.1, 12.4       | 2.4.0                 |
 | 3.12               | 12.1             | 2.4.0                 |
