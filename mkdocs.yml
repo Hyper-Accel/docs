@@ -43,26 +43,33 @@ nav:
     #      - Install HRT: I_hrt.md
     #      - Install Compiler: I_compiler.md
     #  - Quick Start with Python: quick_start.md
-  - Software:
-      - API:
-          - Python API: python_api.md
-          - vLLM API: vllm_api.md
-      - Serving:
-          - TGI Server: tgi_serve.md
-          - vLLM Server: vllm_serve.md
+  - HyperDex Software:
       - SDK:
-          - Model Compilation: model_compile.md
+          - Hyperdex Toolchain: hyperdex_toolchain.md
           - Supported Models: supported_models.md
-      - Others:
-          - Chat-UI with LPU: chat_ui.md
+      - Inference:
+          - Offline Infereence: Offline_Inference.md
+          - Online Inference: Online_Inference.md
+      # - API:
+      #     - Python API: python_api.md
+      #     - vLLM API: vllm_api.md
+      # - Serving:
+      #     - TGI Server: tgi_serve.md
+      #     - vLLM Server: vllm_serve.md
+      # - SDK:
+      #     - Model Compilation: model_compile.md
+      #     - Supported Models: supported_models.md
+      - Chat UI: chat_ui.md
+          # - Chat-UI with LPU: chat_ui.md
         #  - Deploying with Docker(WIP): docker.md
-  - About LPU:
-      - Useful Commands: trouble_shoot.md
+  # - About LPU:
+      # - Useful Commands: trouble_shoot.md
     #  - Performance: performance.md
-      - Q&A:
-          - About Server: QA_server.md
-          - About Device: QA_device.md
-          - About Software: QA_software.md
+  - Q&A:
+      - Useful Commands: trouble_shoot.md
+      - About Server: QA_server.md
+      - About Device: QA_device.md
+      - About Software: QA_software.md
 # Want to add: sw_overview, performance, docker
 # Unsed: install_guide, install_xrt, install_hrt
 copyright: Copyright &copy; 2023 - 2024 HyperAccel Inc.
