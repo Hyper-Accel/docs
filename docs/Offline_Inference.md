@@ -1,9 +1,6 @@
 <!---
 Copyright 2024 The HyperAccel Inc. All rights reserved.
 -->
-# vllm 설치
-# vllm offline inference
-# FPGA and Hybrid
 
 
 HyperDex supports the vLLM framework to run on LPU. As you know, the vLLM framework officially supports a variety of hardware including GPU, TPU, and XPU. HyperDex has its own branch of vLLM with a backend specifically designed for LPU, making it very easy to use. If your system is already using vLLM, you can switch hardware from GPU to LPU without changing any code.
@@ -15,6 +12,7 @@ HyperDex supports the vLLM framework to run on LPU. As you know, the vLLM framew
 * **Python**: 3.10 ~ 3.12
 * **torch**: 2.4.0+cpu (in LPU only env) or 2.4.0+cu121 (in LPU+GPU env)
 * [Xilinx Runtime Library](./install_guide.md)
+* HyperDex-Toolchain
 
 ### Install with pip
 You can install `hyperdex-vllm` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
@@ -25,8 +23,8 @@ $ conda create -n vllm-env python=3.10 -y
 $ conda activate vllm-env
 
 $ # Install HyperDex-vLLM in LPU only env
-$ pip install -i https://<username>:<password>@pypi.hyperaccel.ai/simple/ vllm == 0.6.1+fpga143toolchain
-$ pip install -i https://pypi.hyperaccel.ai/simple vllm==0.6.1+cpu
+$ pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cpu
+$ pip install -i https://pypi.hyperaccel.ai/simple vllm == 0.6.1+fpga143toolchain
 
 $ # Install HyperDex-vLLM in LPU+GPU env
 $ pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu121
@@ -43,6 +41,10 @@ $ git clone git@github.com:Hyper-Accel/vllm.git
 ## Text Generation with HyperAccel LPU™
 
 HyperDex-vLLM generates tokens very similar to vLLM's `generate` function, enabling you to easily generate tokens as demonstrated in the example below. Ensure that **device="fpga"**, and **num_lpu_devices=1** are set.
+
+!!! note
+    currently, LPU supports one batch at a time. do not put more than one prompt. 
+    multi-batch will be supported soon
 
 ```python linenums="1"
 # You can see this file in our vLLM repo. (vllm/examples/lpu_inference.py)

@@ -9,7 +9,7 @@ HyperDex provides a Python API designed to make running workloads on the LPU bot
 ### Requirements
 
 * **OS**: Ubuntu 22.04 LTS, Rocky 8.4
-* **Python**: 3.9 ~ 3.11
+* **Python**: 3.10 ~ 3.12
 * [Xilinx Runtime Library](./install_guide.md)
 * [HyperDex Runtime & Compiler stack](./install_hyperdex.md)
 

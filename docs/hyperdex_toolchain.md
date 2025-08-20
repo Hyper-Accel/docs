@@ -2,12 +2,11 @@
 
 The HyperDex Toolchain is a Python SDK designed to fully optimize AI workloads on an LPU (Linear Processing Unit).
 
-It combines a compiler, runtime, and device drivers into one integrated package, allowing developers to efficiently run large language models (LLMs) on FPGA/LPU hardware.
+It is a one integrated package consisted of two components, hyperdex.tools and hyperdex.transformers. which is a compiler and runtime package. allowing developers to efficiently run LLM on LPU hardware.
 
-XRT (Xilinx Runtime) is required for basic FPGA communication.
-HyperDex Toolchain is built specifically for LPU hardware, enabling maximum AI performance through model optimization and hardware acceleration.
+hyperdex.tools is a Python based compiler interface which supports to run HuggingFace Transfromers models.
+hyperdex.transformers provides runtime enviroment to run LLM models by providing interface for HuggingFace Transformers.
 
-All processes — device initialization, compilation, and execution — are automated.
 
 ---
 
