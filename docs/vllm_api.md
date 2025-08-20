@@ -8,7 +8,7 @@ HyperDex supports the vLLM framework to run on LPU. As you know, the vLLM framew
 ### Requirements
 
 * **OS**: Ubuntu 22.04 LTS, Rocky 8.4
-* **Python**: 3.9 ~ 3.11
+* **Python**: 3.10 ~ 3.12
 * **torch**: 2.4.0+cpu (in LPU only env) or 2.4.0+cu121 (in LPU+GPU env)
 * [Xilinx Runtime Library](./install_guide.md)
 * [HyperDex Runtime & Compiler stack](./install_guide.md)
