@@ -48,8 +48,12 @@ nav:
           - Hyperdex Toolchain: hyperdex_toolchain.md
           - Supported Models: supported_models.md
       - Inference:
-          - Offline Infereence: Offline_Inference.md
-          - Online Inference: Online_Inference.md
+          - Offline Inference: 
+              - Python API: python_api.md
+              - vLLM API: Offline_Inference.md
+          - Online Inference: 
+              - vLLM server: Online_Inference.md
+              - OpenAI compatible server: Online_Inference_openai.md
       # - API:
       #     - Python API: python_api.md
       #     - vLLM API: vllm_api.md
@@ -66,7 +70,7 @@ nav:
       # - Useful Commands: trouble_shoot.md
     #  - Performance: performance.md
   - Q&A:
-      - Useful Commands: trouble_shoot.md
+      - Useful Commands: Useful_Commands.md
       - About Server: QA_server.md
       - About Device: QA_device.md
       - About Software: QA_software.md
