@@ -8,7 +8,7 @@ HyperDex supports the vLLM framework to run on LPU. As you know, the vLLM framew
 ### Requirements
 
 * **OS**: Ubuntu 22.04 LTS, Rocky 8.4
-* **Python**: 3.10 ~ 3.12
+* **Python**: 3.10 ~ 3.11
 * **torch**: 2.4.0+cpu (in LPU only env) or 2.4.0+cu121 (in LPU+GPU env)
 * [Xilinx Runtime Library](./install_guide.md)
 * [HyperDex Runtime & Compiler stack](./install_guide.md)
@@ -17,9 +17,10 @@ HyperDex supports the vLLM framework to run on LPU. As you know, the vLLM framew
 You can install `hyperdex-vllm` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
 ```python linenums="1" hl_lines="6 7 10 11 14"
-$ # (Recommended) Create a new conda environemnt.
-$ conda create -n hdex-env python=3.10 -y
-$ conda activate hdex-env
+$ # (Recommended) Create a new environemnt.
+$ curl -LsSf https://astral.sh/uv/install.sh | sh
+$ uv venv --no-project --seed .hdex-env
+$ source .hdex-env/bin/activate
 
 $ # Install HyperDex-vLLM in LPU only env
 $ pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cpu
