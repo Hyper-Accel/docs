@@ -43,4 +43,4 @@ To operate the LPU, all two components (**XRT, Python Package**) must be install
 
 Refer to the step-by-step installation guide provided below.
 Note that you need an HyperDex portal account to proceed the installation.
-Please [contact](mailto:contact@hyperaccel.ai) us for more information.
+Please [contact](mailto:support@hyperaccel.ai) us for more information.
