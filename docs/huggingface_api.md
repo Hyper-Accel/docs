@@ -11,7 +11,7 @@ HyperDex provides a Python API designed to make running workloads on the LPU bot
 * **OS**: Ubuntu 22.04 LTS, Rocky 8.4
 * **Python**: 3.10 ~ 3.12
 * [Xilinx Runtime Library](./install_guide.md)
-* [HyperDex Runtime & Compiler stack](./install_hyperdex.md)
+* [HyperDex-Toolchain](./install_hyperdex.md)
 
 ### Install with pip
 You can install `hyperdex-transformers` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
