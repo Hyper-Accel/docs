@@ -1,18 +1,41 @@
 # HyperDex Toolchain
 
-The HyperDex Toolchain is a software stack that makes it easy for users to run AI workloads on an LPU and ensures they are fully optimized for maximum performance. it includes device drivers, runtime, and compiler, and automates all processes necessary to initialize, compile, and run models on the LPU.
+The **HyperDex Toolchain** is a software stack that simplifies running AI workloads on an **LPU**, ensuring they are fully optimized for maximum performance. It includes device drivers, a runtime, and a compiler, and automates all processes required to initialize, compile, and execute models on the LPU.  
 
-It is a single integrated package consisting of two components: **hyperdex.tools** and **hyperdex.transformers**, which serve as the compiler and runtime package, respectively, allowing developers to efficiently run LLMs on LPU hardware.
+This toolchain is delivered as a single integrated package with two core components: **`hyperdex.tools`** and **`hyperdex.transformers`**, serving as the compiler and runtime packages respectively. Together, they enable developers to efficiently run LLMs on LPU hardware with minimal changes to existing workflows.  
 
-- **hyperdex.tools** is a Python-based compiler interface that supports running HuggingFace Transformers models.
-    here, we use AutoCompiler and AutoModelConverter to modify huggingface's LLM models to fit our LPU
-    AutoCompiler is a high-level entry point for compilation pipeline. from checking if LPU supports the model to download and converting the model to be used with our instructions. when converting teh model, AutoModelConverter checks downloaded model's checkpoint, actual model and tokenizer and converts them for LPU
+---
 
-- **hyperdex.transformers** provides a runtime environment for running LLM models and offers an interface for HuggingFace Transformers.
-    From loading model and runtime parameters like number of device to run or maximum length of token with AutoConfig, AutoModelForCausalLM loads model that is compiled for our LPU. we support pre-fix caching here to run models more efficently.
-    AutoTokenizer gets tokenizer for each models. finally, if user wants to get output in real-time, we support TextStreamer to help our decoder tokens to incrementally and streams text either to stdout or via SSE, allowing users to see words form as the model generates them.
+## hyperdex.tools — Compiler  
 
-    classes of our transformers is compatiable with huggingface's tranformers library making it easier for developers to use our LPU product.
+`hyperdex.tools` is a **Python-based compiler interface** designed to support HuggingFace Transformers models. It provides a high-level entry point for adapting models to LPU hardware.  
+
+At the center of this component are **AutoCompiler** and **AutoModelConverter**.  
+- *AutoCompiler* manages the compilation pipeline : it checks whether the target model is supported by the LPU, downloads the model, and prepares it for execution on LPU instructions.  
+- *AutoModelConverter* validates the downloaded checkpoint, inspects the model and tokenizer, and converts them into an LPU-compatible form.  
+
+By handling these steps automatically, `hyperdex.tools` ensures that developers can bring HuggingFace models onto LPU hardware with minimal manual intervention.  
+
+---
+
+## hyperdex.transformers — Runtime  
+
+`hyperdex.transformers` provides the **runtime environment** for executing LLMs on the LPU. It is fully aligned with the HuggingFace Transformers interface, allowing developers to reuse familiar APIs while benefiting from LPU acceleration.  
+
+Key functionality includes:  
+- *AutoConfig*, which loads runtime parameters such as the number of devices or maximum token length  
+- *AutoModelForCausalLM*, which loads and executes compiled LPU models  
+- *AutoTokenizer*, which retrieves the correct tokenizer for each model  
+- *TextStreamer*, which streams decoded tokens incrementally in real time, either to stdout or via SSE, so that words appear as they are generated  
+
+In addition, the runtime supports **prefix caching**, allowing repeated or long-running workloads to be processed more efficiently.  
+
+---
+
+## Compatibility  
+
+All classes and tools within the HyperDex Toolchain are **Compatible with HuggingFace’s `transformers` library**. This ensures that developers can leverage the same ecosystem they are familiar with, while seamlessly transitioning their workloads to LPU-based execution.
+
 
 Before using our HyperDex-Toolchain, please make sure you have met all the requirements of Prerquisites.
 
@@ -21,7 +44,7 @@ Before using our HyperDex-Toolchain, please make sure you have met all the requi
 ## Prerequisites
 - An LPU device is installed and recognized (`lspci | grep -i xilinx`).
 - **XRT** and **Shell** are installed successfully.
-- Linux kernel version is supported by both XRT and HyperDex-Toolhain.
+- Linux kernel version is supported by both XRT and HyperDex-Toolchain.
 - You should have credentials to download required packages.
 
 ---
