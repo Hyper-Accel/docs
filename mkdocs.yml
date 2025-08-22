@@ -44,17 +44,17 @@ nav:
           - Supported Models: supported_models.md
       - Inference:
           - Offline Inference: 
-              - Python API: python_api.md
-              - vLLM API: Offline_Inference.md
+              - HuggingFace API: huggingface_api.md
+              - vLLM API: offline_inference.md
           - Online Inference: 
-              - vLLM server: Online_Inference.md
-              - OpenAI compatible server: Online_Inference_openai.md
+              - vLLM server: online_inference.md
+              - OpenAI compatible server: online_inference_openai.md
       - Chat UI: chat_ui.md
   - Q&A:
-      - Useful Commands: Useful_Commands.md
-      - About Server: QA_server.md
-      - About Device: QA_device.md
-      - About Software: QA_software.md
+      - Useful Commands: useful_commands.md
+      - About Server: about_server.md
+      - About Device: about_device.md
+      - About Software: about_software.md
 # Want to add: sw_overview, performance, docker
 # Unsed: install_guide, install_xrt, install_hrt
 copyright: Copyright &copy; 2023 - 2024 HyperAccel Inc.

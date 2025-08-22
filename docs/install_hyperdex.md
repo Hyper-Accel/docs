@@ -7,22 +7,15 @@ Since the **LPU** is based on [AMD’s Alveo FPGA](https://www.amd.com/ko/produc
 
 ### STEP 1: Requirements
 
-Currently, the HRT supports RHEL-8/8 and Ubuntu-22.04-LTS, ensuring compatibility with these platforms for optimal performance. Please follow [XRT install guide](./install_xrt.md).
+Currently, the HyperDex-Toolchain supports RHEL-8/8 and Ubuntu-22.04-LTS, ensuring compatibility with these platforms for optimal performance. Please follow [XRT install guide](./_install_xrt.md).
 
-The table below shows the compatibility of **Python**, **CUDA**, and **Torch** versions for the HyperDex package. Please ensure your environment matches one of the supported configurations before installation.
-
-| **Python Version** | **CUDA Version** | **Torch Version**     |
-|---------------------|------------------|------------------------|
-| 3.10               | 12.1, 12.4       | 2.4.0                 |
-| 3.11               | 12.1, 12.4       | 2.4.0                 |
-| 3.12               | 12.1             | 2.4.0                 |
+HyperDex-Toolchain supports Python 3.10, 3.11, 3.12 with Torch 2.7.0 and CUDA 12.6. Please ensure your environment matches one of the supported configurations before installation.
 
 ---
 
 ### Notes:
 - **CUDA Compatibility**:
-  - Torch 2.4.0 supports both CUDA 12.1 and 12.4.
-  - **Upcoming release**: soon, we will support Torch 2.7.0 with CUDA 12.6
+  - Torch 2.7.0 supports CUDA 12.6
 
 ---
 
@@ -46,9 +39,8 @@ For security issues, we are directly providing it to those who have inquired.
 
 ### STEP 4: Quick Start
 
-To operate the LPU, all three components (**XRT, Python Package**) must be installed on your server. If you are ready, proceed to the [next step](./quick_start.md).
+To operate the LPU, all two components (**XRT, Python Package**) must be installed on your server. If you are ready, proceed to the [next step](./quick_start.md).
 
 Refer to the step-by-step installation guide provided below.
 Note that you need an HyperDex portal account to proceed the installation.
 Please [contact](mailto:contact@hyperaccel.ai) us for more information.
-

@@ -10,7 +10,7 @@ HyperDex supports the vLLM framework to run on LPU. As you know, the vLLM framew
 
 * **OS**: Ubuntu 22.04 LTS, Rocky 8.4
 * **Python**: 3.10 ~ 3.12
-* **torch**: 2.4.0+cpu (in LPU only env) or 2.4.0+cu121 (in LPU+GPU env)
+* **torch**: 2.7.0+cpu (in LPU only env) or 2.7.0+cu126 (in LPU+GPU env)
 * [Xilinx Runtime Library](./install_guide.md)
 * HyperDex-Toolchain
 
@@ -18,25 +18,27 @@ HyperDex supports the vLLM framework to run on LPU. As you know, the vLLM framew
 You can install `hyperdex-vllm` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
 ```python linenums="1" hl_lines="6 7 10 11 14"
-$ # (Recommended) Create a new conda environemnt.
-$ conda create -n vllm-env python=3.10 -y
-$ conda activate vllm-env
+$ # (Recommended) Create a new virtual environemnt. We recommend to use uv(https://docs.astral.sh/uv/)
+$ curl -LsSf https://astral.sh/uv/install.sh | sh
+$ uv venv --no-project --seed .hdex-env
+$ source .hdex-env/bin/activate
+
+$ # Install HyperDex Python Package
+$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-toolchain
 
 $ # Install HyperDex-vLLM in LPU only env
-$ pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cpu
-$ pip install -i https://pypi.hyperaccel.ai/simple vllm == 0.6.1+fpga143toolchain
+$ pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cpu
+$ pip install -i https://pypi.hyperaccel.ai/simple vllm == 0.9.0+orion
 
 $ # Install HyperDex-vLLM in LPU+GPU env
-$ pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 --index-url https://download.pytorch.org/whl/cu121
-$ pip install -i https://pypi.hyperaccel.ai/simple vllm == 0.6.1+hybrid143toolchain
+$ pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cu126
+$ pip install -i https://pypi.hyperaccel.ai/simple vllm == 0.9.0+orion
 
 $ # Install HyperDex-vLLM source code
 $ git clone git@github.com:Hyper-Accel/vllm.git
-
-
-
-
 ```
+
+
 
 ## Text Generation with HyperAccel LPU™
 
@@ -45,6 +47,8 @@ HyperDex-vLLM generates tokens very similar to vLLM's `generate` function, enabl
 !!! note
     currently, LPU supports one batch at a time. do not put more than one prompt. 
     multi-batch will be supported soon
+
+
 
 ```python linenums="1"
 # You can see this file in our vLLM repo. (vllm/examples/lpu_inference.py)
