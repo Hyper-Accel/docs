@@ -2,7 +2,7 @@
 Copyright 2024 The HyperAccel Inc. All rights reserved.
 -->
 
-# Troubleshooting Guide
+# Troubleshooting
 
 ## XRT
 

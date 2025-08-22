@@ -47,8 +47,8 @@ nav:
               - HuggingFace API: huggingface_api.md
               - vLLM API: offline_inference.md
           - Online Inference: 
-              - vLLM server: online_inference.md
-              - OpenAI compatible server: online_inference_openai.md
+              - vLLM Server: online_inference.md
+              - OpenAI Compatible Server: online_inference_openai.md
       - Chat UI: chat_ui.md
   - Q&A:
       - Useful Commands: useful_commands.md
