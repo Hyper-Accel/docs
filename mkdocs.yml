@@ -55,6 +55,7 @@ nav:
       - About Server: about_server.md
       - About Device: about_device.md
       - About Software: about_software.md
+      - Troubleshooting: troubleshooting.md
 # Want to add: sw_overview, performance, docker
 # Unsed: install_guide, install_xrt, install_hrt
 copyright: Copyright &copy; 2023 - 2024 HyperAccel Inc.

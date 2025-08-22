@@ -33,11 +33,7 @@ $ # Install HyperDex Python Package
 $ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-toolchain
 ```
 
-### STEP 3: Install Device Package
-
-For security issues, we are directly providing it to those who have inquired.
-
-### STEP 4: Quick Start
+### STEP 3: Quick Start
 
 To operate the LPU, all two components (**XRT, Python Package**) must be installed on your server. If you are ready, proceed to the [next step](./quick_start.md).
 
