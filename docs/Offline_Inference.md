@@ -33,16 +33,14 @@ $ pip install -i https://pypi.hyperaccel.ai/simple vllm == 0.9.0+orion
 $ # Install HyperDex-vLLM in LPU+GPU env
 $ pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cu126
 $ pip install -i https://pypi.hyperaccel.ai/simple vllm == 0.9.0+orion
-
-$ # Install HyperDex-vLLM source code
-$ git clone git@github.com:Hyper-Accel/vllm.git
 ```
 
 
 
 ## Text Generation with HyperAccel LPU™
 
-HyperDex-vLLM generates tokens very similar to vLLM's `generate` function, enabling you to easily generate tokens as demonstrated in the example below. Ensure that **device="fpga"**, and **num_lpu_devices=1** are set.
+HyperDex-vLLM generates tokens very similar to vLLM's `generate` function, enabling you to easily generate tokens as demonstrated in the example below. to use LPU, you must give this environment variable "NUM_LPU_DEVICES" with number of devices to use
+
 
 !!! note
     currently, LPU supports one batch at a time. do not put more than one prompt. 
@@ -51,38 +49,51 @@ HyperDex-vLLM generates tokens very similar to vLLM's `generate` function, enabl
 
 
 ```python linenums="1"
-# You can see this file in our vLLM repo. (vllm/examples/lpu_inference.py)
-
+# You can see this file in our vLLM repo. (vllm/examples/vllm_lpu_model_runner.py.py)
 from vllm import LLM, SamplingParams
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Create prompts and a sampling params object.
 prompts = ["Hello, my name is"]
 sampling_params = SamplingParams(temperature=0.8, top_p=0.95, top_k=1, min_tokens=30, max_tokens=30)
 
 # Create an LLM
-llm = LLM(model="TinyLlama/TinyLlama-1.1B-Chat-v1.0", device="fpga", num_lpu_devices=1)
+llm = LLM(model="/path/to/llama-7b")
 
 # Generate texts from the prompts. 
 outputs = llm.generate(prompts, sampling_params)
 
-# Print the outputs.
+# Log the outputs
+logger.info("-" * 60)
 for output in outputs:
     prompt = output.prompt
     generated_text = output.outputs[0].text
-    print(f"Prompt: {prompt!r}, Generated text: {generated_text!r}")
+    logger.info(f"Prompt:    {prompt!r}")
+    logger.info(f"Output:    {generated_text!r}")
+    logger.info("-" * 60)
 ```
+
+
+```bash linenums="1"
+# run the code with command 
+NUM_LPU_DEVICES=2 uv run vllm_lpu_model_runner.py
+```
+
 
 ## GPU-LPU Hybrid System
 
-HyperDex supports a heterogeneous GPU-LPU hardware system for executing large language models (LLM). Each hardware type offers distinct strengths: GPU excels in large-scale parallel computations, while LPU is designed to fully optimize memory bandwidth utilization. 
+HyperDex-Toolchain supports a heterogeneous GPU-LPU hardware system for executing large language models (LLM). Each hardware type offers distinct strengths: GPU excels in large-scale parallel computations, while LPU is designed to fully optimize memory bandwidth utilization. 
 
 Since the prefill stage is compute-bound and the decode stage is memory-bound, the hybrid system processes prefill stage using a GPU, and decode stage using a LPU. This approach sighificantly boosts LLM performance!
 
-To enable the hybrid system, simply add the option **num_gpu_devices=1**.
+To enable the hybrid system, simply add NUM_GPU_DEVICES=2 at command.
 
-```python linenums="1"
-# Create an LLM.
-llm = LLM(model="TinyLlama/TinyLlama-1.1B-Chat-v1.0", device="fpga", num_lpu_devices=1, **num_gpu_devices=1**)
+```bash linenums="1"
+# run with this command
+NUM_GPU_DEVICES=2 NUM_LPU_DEVICES=2 uv run vllm_lpu_model_runner.py
 ```
 
 
@@ -108,11 +119,5 @@ LLM Engine is a core component of vLLM because it performs various functions. Fo
 |-----------------------|-------------------------------------------------------------------------------|
 | `model`               | Name of path of the huggingface model to use. Default: "facebook/opt-125m"    |
 | `device`              | Device type for vLLM execution. Default: "cuda"                               |
-| `num_lpu_devices`     | Number of LPU to compute in parallel. Default: 1                              |
-| `num_gpu_devices`     | Number of GPU to compute in parallel. Default: 0                              |
 | `tokenizer`           | Name of path of the huggingface tokenizer to use. If not specified, model name of path will be used   |
 | `trust-remote-code`   | Trust remote code from huggingface. Default: False                            |
-
-
-
-
