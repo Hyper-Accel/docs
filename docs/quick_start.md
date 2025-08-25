@@ -8,13 +8,14 @@ from hyperdex.transformers import AutoModelForCausalLM
 from hyperdex.transformers import AutoTokenizer
 
 # Load tokenzier and model
-tokenizer = AutoTokenizer.from_pretrained("llama-7b")
-model = AutoModelForCausalLM.from_pretrained("llama-7b", device_map={"lpu": 1})
+tokenizer = AutoTokenizer.from_pretrained("facebook/opt-1.3b")
+model = AutoModelForCausalLM.from_pretrained("facebook/opt-1.3b")
 
 # Text Generation
 input_ids = tokenizer.encode("Hello world!", return_tensors="np")
 output_ids = model.generate(input_ids, max_length=1024, do_sample=False)
-outputs = tokenizer.decode(input_ids)
+outputs = tokenizer.decode(output_ids)
+print(outputs)
 ```
 
 The tokenizer is responsible for all the preprocessing the pretrained model expects, and can be called directly on a single string (as in the above examples) or a list. It will output a dictionary that you can use in downstream code or simply directly pass to your model using the `generate` API.

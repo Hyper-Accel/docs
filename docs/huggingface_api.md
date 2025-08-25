@@ -11,10 +11,9 @@ HyperDex provides a Python API designed to make running workloads on the LPU bot
 * **OS**: Ubuntu 22.04 LTS, Rocky 8.4
 * **Python**: 3.10 ~ 3.12
 * [Xilinx Runtime Library](./install_guide.md)
-* [HyperDex-Toolchain](./install_hyperdex.md)
 
 ### Install with pip
-You can install `hyperdex-transformers` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
+You can install `hyperdex-toolchain` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
 ```python linenums="1" hl_lines="6"
 $ # (Recommended) Create a new environemnt.
@@ -30,13 +29,16 @@ $ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-toolchain
 
 HyperDex allows you to generate output tokens using a function similar to HuggingFace's `generate` function. Therefore, you can easily generate tokens as shown in the example below.
 
+!!! tip "Tip"
+    You may need to log in to Hugging Face Hub.
+
 ```python linenums="1"
 import os
 from hyperdex.tools import AutoCompiler
 from hyperdex.transformers import AutoModelForCausalLM, AutoTokenizer
 
 # Path to hyperdex checkpoint (MODIFY model path and model here)
-model_id = "/path/to/llama-7b"
+model_id = "facebook/opt-1.3b"
 
 # MODIFY hardware configuration here
 lpu_device = 2
@@ -100,7 +102,7 @@ from hyperdex.tools import AutoCompiler
 from hyperdex.transformers import AutoModelForCausalLM, AutoTokenizer
 
 # Path to hyperdex checkpoint (MODIFY model path and model here)
-model_id = "/path/to/llama-7b"
+model_id = "facebook/opt-1.3b"
 
 # MODIFY hardware configuration here
 lpu_device = 2
@@ -175,12 +177,12 @@ from hyperdex.transformers import AutoModelForCausalLM
 from hyperdex.transformers import AutoTokenizer
 from hyperdex.transformers import TextStreamer
 
-# Path to hyperdex checkpoint
-hyperdex_ckpt = "/path/to/llama-7b"
+# Path to hyperdex model
+hyperdex_model = "facebook/opt-1.3b"
 
 # Load tokenzier and model
-tokenizer = AutoTokenizer.from_pretrained(model_id=hyperdex_ckpt)
-model = AutoModelForCausalLM.from_pretrained(model_id=hyperdex_ckpt, device_map={"lpu": 1})
+tokenizer = AutoTokenizer.from_pretrained(model_id=hyperdex_model)
+model = AutoModelForCausalLM.from_pretrained(model_id=hyperdex_model, device_map={"lpu": 1})
 # Config streamer module
 streamer = TextStreamer(tokenizer, skip_special_tokens=True)
 ```
