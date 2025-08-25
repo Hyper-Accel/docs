@@ -9,7 +9,11 @@ Since the **LPU** is based on [AMD’s Alveo FPGA](https://www.amd.com/ko/produc
 
 Currently, the HyperDex-Toolchain supports RHEL-8/8 and Ubuntu-22.04-LTS, ensuring compatibility with these platforms for optimal performance. Please follow [XRT install guide](./_install_xrt.md).
 
-HyperDex-Toolchain supports Python 3.10, 3.11, 3.12 with Torch 2.7.0 and CUDA 12.6. Please ensure your environment matches one of the supported configurations before installation.
+The table below shows the compatibility of Python, CUDA, and Torch versions for the HyperDex package. Please ensure your environment matches one of the supported configurations before installation.
+
+| **Python Version** | **CUDA Version** | **Torch Version**     |
+|---------------------|------------------|------------------------|
+| 3.10, 3.11, 3.12    | CPU-only, 12.6    | 2.7.0                 |
 
 ---
 
@@ -19,18 +23,30 @@ HyperDex-Toolchain supports Python 3.10, 3.11, 3.12 with Torch 2.7.0 and CUDA 12
 
 ---
 
-### STEP 2: Install Python Package
-
-You can install `hyperdex python package` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
-
 ```python
 $ # (Recommended) Create a new virtual environemnt. We recommend to use uv(https://docs.astral.sh/uv/)
 $ curl -LsSf https://astral.sh/uv/install.sh | sh
 $ uv venv --no-project --seed .hdex-env
 $ source .hdex-env/bin/activate
+```
 
-$ # Install HyperDex Python Package
-$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-toolchain
+### STEP 2: Install Python Package
+
+You can install `hyperdex python package` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
+
+
+Install with LPU only
+```python
+
+$ # Install HyperDex-Toolchain in LPU only env
+$ uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cpu
+# You will be asked to login into hyperaccel portal use given id and password
+$ uv pip install -i https://pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.1+cpu
+
+$ # Install HyperDex-Toolchain in LPU+GPU env
+$ uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cu126
+# You will be asked to login into hyperaccel portal use given id and password
+$ uv pip install -i https://pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.1+cu126
 ```
 
 ### STEP 3: Quick Start
