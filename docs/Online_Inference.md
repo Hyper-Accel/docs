@@ -12,8 +12,7 @@ hyperdex-vllm provides an HTTP server that implements vLLM API.
 You can execute the server by the command below.
 
 ```shell linenums="1"
-$ python -m vllm.entrypoints.api_server --model facebook/opt-1.3b \
-        --device fpga --num_lpu_devices 1
+$ NUM_LPU_DEVICES=2 vllm facebook/opt-1.3b
 
 ... OMISSION ...
 
@@ -29,16 +28,31 @@ Arguments are the same as [vLLM Engine](./Offline_Inference.md).
 
 ### Client
 
-To call the server, you can use the client example provided in `vllm/examples` ensuring that `use_beam_search=False`.
+To call the server, run this example command at another terminal
 
 ```shell linenums="1"
-# You can see this file in our vLLM repo. (vllm/examples/lpu_client.py)
-python lpu_client.py --stream
+curl http://localhost:8000/v1/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "facebook/opt-1.3b",
+    "prompt": "Hello, my name is",
+    "max_tokens": 30,
+    "temperature": 0
+  }'
 ```
-example results
-```shell linenums="1"
-Prompt: 'Act like an experienced HR Manager. Develop a human resources strategy for retaining top talents in a competitive industry. Industry: (e.g Energy( Workforce: (e,g 550) Style: (e.g Formal) Tone: (e.g Convincing)'
 
-Act like an experienced HR Manager. Develop a human resources strategy for retaining top talents in a competitive industry. Industry: (e.g Energy( Workforce: (e,g 550) Style: (e.g Formal) Tone: (e.g Convincing)
-Beam candidate 0: 'Act like an experienced HR Manager. Develop a human resources strategy for retaining top talents in a competitive industry. Industry: (e.g Energy( Workforce: (e,g 550) Style: (e.g Formal) Tone: (e.g Convincing) Length: (e.g 2 pages) 1. Introduction 2. Current Situation 3. Retention Strategy 4. Implementation Plan 5. Conclusion 6. References 7.'
+### Openai Client
+
+To call the server using openai compatiable server format, use this command  
+
+```shell linenums="1"
+curl http://localhost:8000/v1/chat/completions   -H "Content-Type: application/json"   -H "Authorization: Bearer EMPTY"   -d '{
+    "model": "facebook/opt-1.3b",
+    "messages": [
+      {"role": "system", "content": "You are a helpful assistant."},
+      {"role": "user", "content": "Who won the world series in 2020?"},
+      {"role": "assistant", "content": "The Los Angeles Dodgers won the ^Crld Series in 2020."},
+      {"role": "user", "content": "Where was it played?"}
+    ]
+  }'
 ```
