@@ -48,7 +48,6 @@ nav:
               - vLLM API: offline_inference.md
           - Online Inference: 
               - vLLM Server: online_inference.md
-              - OpenAI Compatible Server: online_inference_openai.md
       - Chat UI: chat_ui.md
   - Q&A:
       - Useful Commands: useful_commands.md
