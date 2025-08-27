@@ -13,20 +13,15 @@ The table below shows the compatibility of Python, CUDA, and Torch versions for 
 
 | **Python Version** | **CUDA Version** | **Torch Version**     |
 |---------------------|------------------|------------------------|
-| 3.10, 3.11, 3.12    | CPU-only, 12.6    | 2.7.0                 |
+| 3.10, 3.11, 3.12    | CPU-only, 12.6   | 2.7.0+cpu, 2.7.0+cu126 |
 
----
-
-### Notes:
-- **CUDA Compatibility**:
-  - Torch 2.7.0 supports CUDA 12.6
-
----
+To start installation, run following command to make new enviroment.
+We will use uv—a fast Python package and virtual-environment manager—in this docs to setup enviroment for HyperDex-Toolchain fast and easy.
 
 ```python
 $ # (Recommended) Create a new virtual environemnt. We recommend to use uv(https://docs.astral.sh/uv/)
 $ curl -LsSf https://astral.sh/uv/install.sh | sh
-$ uv venv --no-project --seed .hdex-env
+$ uv venv -p python==3.10 --no-project --seed .hdex-env
 $ source .hdex-env/bin/activate
 ```
 
@@ -35,24 +30,21 @@ $ source .hdex-env/bin/activate
 You can install `hyperdex python package` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
 
-Install with LPU only
+!!! note
+    To run following command, use given hyperaccel pypi id and password for pypi_id and pypi_pw.
+    Please [contact](mailto:support@hyperaccel.ai) us if you need help
+
 ```python
 
 $ # Install HyperDex-Toolchain in LPU only env
 $ uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cpu
-# You will be asked to login into hyperaccel portal use given id and password
-$ uv pip install -i https://pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.1+cpu
+$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.1+cpu
 
 $ # Install HyperDex-Toolchain in LPU+GPU env
 $ uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cu126
-# You will be asked to login into hyperaccel portal use given id and password
-$ uv pip install -i https://pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.1+cu126
+$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.1+cu126
 ```
 
 ### STEP 3: Quick Start
 
 To operate the LPU, all two components (**XRT, Python Package**) must be installed on your server. If you are ready, proceed to the [next step](./quick_start.md).
-
-Refer to the step-by-step installation guide provided below.
-Note that you need an HyperDex portal account to proceed the installation.
-Please [contact](mailto:support@hyperaccel.ai) us for more information.

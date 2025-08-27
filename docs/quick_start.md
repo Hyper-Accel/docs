@@ -9,7 +9,7 @@ from hyperdex.transformers import AutoTokenizer
 
 # Load tokenzier and model
 tokenizer = AutoTokenizer.from_pretrained("facebook/opt-1.3b")
-model = AutoModelForCausalLM.from_pretrained("facebook/opt-1.3b")
+model = AutoModelForCausalLM.from_pretrained("facebook/opt-1.3b", device_map={"lpu": 1})
 
 # Text Generation
 input_ids = tokenizer.encode("Hello world!", return_tensors="np")

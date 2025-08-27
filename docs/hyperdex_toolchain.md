@@ -49,4 +49,4 @@ Before using our HyperDex-Toolchain, please make sure you have met all the requi
 
 ---
 
-For installation, please move to [HyperDex-Toolchain installation](./huggingface_api.md) or if you prefer to use with vLLM, move to [vLLM installation](./offline_inference.md)
+For installation, please move to [HyperDex-Toolchain installation](./install_hyperdex.md) or if you prefer to use with vLLM, move to [vLLM installation](./offline_inference.md)
