@@ -11,7 +11,7 @@ HyperDex supports the vLLM framework to run on LPU. As you know, the vLLM framew
 * **OS**: Ubuntu 22.04 LTS, Rocky 8.4
 * **Python**: 3.10 ~ 3.12
 * **torch**: 2.7.0+cpu (in LPU only env) or 2.7.0+cu126 (in LPU+GPU env)
-* [Xilinx Runtime Library](./install_guide.md)
+* [Xilinx Runtime Library](./_install_xrt.md)
 * HyperDex-Toolchain
 
 ### Install with pip
@@ -20,19 +20,20 @@ You can install `hyperdex-vllm` using pip, which requires access rights to [Hype
 ```python linenums="1" hl_lines="6 7 10 11 14"
 $ # (Recommended) Create a new virtual environemnt. We recommend to use uv(https://docs.astral.sh/uv/)
 $ curl -LsSf https://astral.sh/uv/install.sh | sh
-$ uv venv --no-project --seed .hdex-env
+$ uv venv -p python==3.10 --no-project --seed .hdex-env
 $ source .hdex-env/bin/activate
 
-$ # Install HyperDex Python Package
-$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-toolchain
+$ # Install HyperDex-Toolchain and vLLM in LPU only env
+$ uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cpu
+$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.1+cpu
+$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple vllm==0.9.0+orion
+$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple vllm-orion==0.0.1
 
-$ # Install HyperDex-vLLM in LPU only env
-$ pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cpu
-$ pip install -i https://pypi.hyperaccel.ai/simple vllm == 0.9.0+orion
-
-$ # Install HyperDex-vLLM in LPU+GPU env
-$ pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cu126
-$ pip install -i https://pypi.hyperaccel.ai/simple vllm == 0.9.0+orion
+$ # Install HyperDex-Toolchain and vLLM in LPU+GPU env
+$ uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cu126
+$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.1+cu126
+$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple vllm==0.9.0+orion
+$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple vllm-orion==0.0.1
 ```
 
 

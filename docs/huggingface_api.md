@@ -10,7 +10,7 @@ HyperDex provides a Python API designed to make running workloads on the LPU bot
 
 * **OS**: Ubuntu 22.04 LTS, Rocky 8.4
 * **Python**: 3.10 ~ 3.12
-* [Xilinx Runtime Library](./install_guide.md)
+* [Xilinx Runtime Library](./_install_xrt.md)
 
 ### Install with pip
 You can install `hyperdex-toolchain` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
@@ -18,11 +18,11 @@ You can install `hyperdex-toolchain` using pip, which requires access rights to 
 ```python linenums="1" hl_lines="6"
 $ # (Recommended) Create a new environemnt.
 $ curl -LsSf https://astral.sh/uv/install.sh | sh
-$ uv venv --no-project --seed .hdex-env
+$ uv venv -p python==3.10 --no-project --seed .hdex-env
 $ source .hdex-env/bin/activate
 
 $ # Install HyperDex-Python
-$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-toolchain
+$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.1+cpu
 ```
 
 ## Text Generation with HyperAccel LPU™
