@@ -9,61 +9,84 @@ HyperDex provides a Python API designed to make running workloads on the LPU bot
 ### Requirements
 
 * **OS**: Ubuntu 22.04 LTS, Rocky 8.4
-* **Python**: 3.9 ~ 3.11
-* [Xilinx Runtime Library](./install_guide.md)
-* [HyperDex Runtime & Compiler stack](./install_hyperdex.md)
+* **Python**: 3.10 ~ 3.12
+* [Xilinx Runtime Library](./_install_xrt.md)
 
 ### Install with pip
-You can install `hyperdex-transformers` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
+You can install `hyperdex-toolchain` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
 ```python linenums="1" hl_lines="6"
-$ # (Recommended) Create a new conda environemnt.
-$ conda create -n hdex-env python=3.10 -y
-$ conda activate hdex-env
+$ # (Recommended) Create a new environemnt.
+$ curl -LsSf https://astral.sh/uv/install.sh | sh
+$ uv venv -p python==3.10 --no-project --seed .hdex-env
+$ source .hdex-env/bin/activate
 
 $ # Install HyperDex-Python
-$ pip install -i https://pypi.hyperaccel.ai/simple hyperdex-transformers
+$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.1+cpu
 ```
 
 ## Text Generation with HyperAccel LPU™
 
 HyperDex allows you to generate output tokens using a function similar to HuggingFace's `generate` function. Therefore, you can easily generate tokens as shown in the example below.
 
+!!! tip "Tip"
+    You may need to log in to Hugging Face Hub.
+
 ```python linenums="1"
-# Immport HyperDex transformers
-from hyperdex.transformers import AutoModelForCausalLM
-from hyperdex.transformers import AutoTokenizer
+import os
+from hyperdex.tools import AutoCompiler
+from hyperdex.transformers import AutoModelForCausalLM, AutoTokenizer
 
 # Path to hyperdex checkpoint (MODIFY model path and model here)
-ckpt = "/path/to/llama-7b"
+model_id = "facebook/opt-1.3b"
 
-# Load tokenzier and model (MODIFY hardware configuration here)
-tokenizer = AutoTokenizer.from_pretrained(ckpt)
-model = AutoModelForCausalLM.from_pretrained(ckpt, device_map={"lpu": 1})
+# MODIFY hardware configuration here
+lpu_device = 2
+gpu_device = 0
 
-# Input text (MODIFY your input here)
-inputs = "Hello world!"
+def main():
+    hdex = AutoCompiler()
+    hdex.compile(
+        model_id=model_id,
+        num_device=lpu_device,
+        max_length=4096,
+        low_memory_usage=False,
+        fast_compile=True,
+    )
 
-# 1. Encode input text to input token ids
-input_ids = tokenizer.encode(inputs, return_tensors="np")
-# 2. Generate output token ids with LPU™ (MODIFY sampling parameters here)
-output_ids = model.generate(
-  inputs,
-  max_length=1024,
-  # Sampling
-  do_sample=True,
-  top_p=0.7,
-  top_k=50,
-  temperature=1.0,
-  repetition_penalty=1.2,
-  # Stopping
-  early_stopping=False
-)
-# 3. Decode output token ids to output text
-outputs = tokenizer.decode(output_ids, skip_special_tokens=True)
+    model = AutoModelForCausalLM.from_pretrained(
+        model_id=model_id,
+        device_map={"gpu": gpu_device, "lpu": lpu_device}
+    )
+    tokenizer = AutoTokenizer.from_pretrained(model_id)
 
-# Print the output context
-print(outputs)
+   
+    # Input text (MODIFY your input here)
+    inputs = "Hello, my name"
+
+    # 1. Encode input text to input token ids
+    input_ids = tokenizer.encode(inputs)
+
+    # 2. Generate output token ids with LPU™ (MODIFY sampling parameters here)
+    output_ids = model.generate(
+        input_ids,
+        max_new_tokens=512,
+        # Sampling
+        do_sample=True,
+        top_p=0.7,
+        top_k=1,
+        temperature=1.0,
+        repetition_penalty=1.2
+    )
+
+    # 3. Decode output token ids to output text
+    outputs = tokenizer.decode(output_ids, skip_special_tokens=True)
+
+    # Print the output context
+    print(outputs)
+
+if __name__ == "__main__":
+    main()
 ```
 
 ## LPU-GPU Hybrid System
@@ -71,19 +94,63 @@ print(outputs)
 Starting from version 1.3.2, HyperDex-Python supports the LPU-GPU hybrid system. The GPU, which has relatively higher computing power, handles the Prefill part of the Transformer, while the LPU, which efficiently utilizes memory bandwidth, processes the Decode part. The Key-Value transfer between Prefill and Decode can be performed without overhead using HyperDex's proprietary technology. You can select the number of devices to use for both GPU and LPU through the `device_map` option.
 
 !!! note
-    To run the `LPU-GPU hybrid system`, you need to have `CUDA 12.1` installed on your system. Additionally, since the GPU utilizes `PyTorch` to run LLMs, it is recommended to install `torch version 2.4.0 or later` to ensure optimal compatibility and performance.​
+    To run the `LPU-GPU hybrid system`, you need to have `CUDA 12.6` installed on your system. Additionally, since the GPU utilizes `PyTorch` to run LLMs, it is recommended to install `torch version 2.7.0 or later` to ensure optimal compatibility and performance.​
 
 ```python linenums="1" hl_lines="10"
-# Immport HyperDex transformers
-from hyperdex.transformers import AutoModelForCausalLM
-from hyperdex.transformers import AutoTokenizer
+import os
+from hyperdex.tools import AutoCompiler
+from hyperdex.transformers import AutoModelForCausalLM, AutoTokenizer
 
 # Path to hyperdex checkpoint (MODIFY model path and model here)
-ckpt = "/path/to/llama-7b"
+model_id = "facebook/opt-1.3b"
 
-# Use LPU-GPU hybrid system with devce_map option
-tokenizer = AutoTokenizer.from_pretrained(model_id=hyperdex_ckpt)
-model = AutoModelForCausalLM.from_pretrained(model_id=hyperdex_ckpt, device_map={"gpu": 1, "lpu": 1})
+# MODIFY hardware configuration here
+lpu_device = 2
+gpu_device = 2
+
+def main():
+    hdex = AutoCompiler()
+    hdex.compile(
+        model_id=model_id,
+        num_device=lpu_device,
+        max_length=4096,
+        low_memory_usage=False,
+        fast_compile=True,
+    )
+
+    model = AutoModelForCausalLM.from_pretrained(
+        model_id=model_id,
+        device_map={"gpu": gpu_device, "lpu": lpu_device}
+    )
+    tokenizer = AutoTokenizer.from_pretrained(model_id)
+
+   
+    # Input text (MODIFY your input here)
+    inputs = "Hello, my name"
+
+    # 1. Encode input text to input token ids
+    input_ids = tokenizer.encode(inputs)
+
+    # 2. Generate output token ids with LPU™ (MODIFY sampling parameters here)
+    output_ids = model.generate(
+        input_ids,
+        max_new_tokens=512,
+        # Sampling
+        do_sample=True,
+        top_p=0.7,
+        top_k=1,
+        temperature=1.0,
+        repetition_penalty=1.2
+    )
+
+    # 3. Decode output token ids to output text
+    outputs = tokenizer.decode(output_ids, skip_special_tokens=True)
+
+    # Print the output context
+    print(outputs)
+
+if __name__ == "__main__":
+    main()
 ```
 
 To use the hybrid system, you need CUDA version 12.1 or later and the corresponding version of PyTorch.
@@ -110,12 +177,12 @@ from hyperdex.transformers import AutoModelForCausalLM
 from hyperdex.transformers import AutoTokenizer
 from hyperdex.transformers import TextStreamer
 
-# Path to hyperdex checkpoint
-hyperdex_ckpt = "/path/to/llama-7b"
+# Path to hyperdex model
+hyperdex_model = "facebook/opt-1.3b"
 
 # Load tokenzier and model
-tokenizer = AutoTokenizer.from_pretrained(model_id=hyperdex_ckpt)
-model = AutoModelForCausalLM.from_pretrained(model_id=hyperdex_ckpt, device_map={"lpu": 1})
+tokenizer = AutoTokenizer.from_pretrained(model_id=hyperdex_model)
+model = AutoModelForCausalLM.from_pretrained(model_id=hyperdex_model, device_map={"lpu": 1})
 # Config streamer module
 streamer = TextStreamer(tokenizer, skip_special_tokens=True)
 ```

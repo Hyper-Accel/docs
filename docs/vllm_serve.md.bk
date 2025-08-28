@@ -22,7 +22,7 @@ INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 ```
 
 ### Descriptions of HyperDex-vLLM Serve Arguments
-Arguments are the same as [vLLM Engine](./vllm_api.md).
+Arguments are the same as [vLLM Engine](./offline_inference.md).
 
 
 ### Client
