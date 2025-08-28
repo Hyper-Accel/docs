@@ -8,42 +8,15 @@ Copyright 2023 The HyperAccel. All rights reserved.
     <br>
 </p>
 
-# Welcome to HyperAccel Documentation
+**LLM Processing Unit(LPU)** is latency-optimized and highly scalable hardware architecture that executes large language model (LLM) inference. LPU architecture delivers high performance and energy efficiency compared to other accelerators such as NVIDIA GPU.
 
-## About HyperAccel
+**HyperDex** is the end-to-end (E2E) software stack designed specifically for LPU. It enables you to fine-tune your models and fully harness the power of LPU technology. With features that deliver enhanced power efficiency and robust processing capabilities, HyperDex provides the flexibility and speed needed to accelerate your machine learning workflows.
 
-**HyperAccel** is a pioneering semiconductor company specializing in the design and development of **LLM-optimized chips**. We focus on creating next-generation hardware solutions specifically engineered to accelerate large language model inference workloads.
+**HyperDex-Toolchain** is fully compatible with the HuggingFace framework, vLLM, and other custom frameworks. Whether you’re working with HuggingFace LLM models or other models, HyperDex ensures a seamless transition to the LPU. This allows you to focus on innovation, without worrying about infrastructure challenges. 
 
-Our mission is to revolutionize AI computing by delivering hardware that fundamentally understands the unique computational patterns and requirements of large language models, enabling unprecedented performance improvements in AI applications. HyperAccel addresses these specific requirements with purpose-built silicon architecture.
+**HyperDex SDK** delivers a complete solution in a single stack, encompassing the compiler, runtime, and drivers, providing a straightforward solution to integrate your pre-trained models into production environments. The unique efficiency of the LPU minimizes the need for extensive manual optimization, enabling faster deployment without compromising on performance.
 
-## LLM Processing Unit (LPU)
-
-**LPU** is HyperAccel's breakthrough hardware architecture designed from the ground up for large language model inference. Unlike traditional accelerators that were originally designed for other computing tasks, the LPU is purpose-built to handle the specific computational patterns of LLMs.
-
-### Key LPU Advantages
-
-- **LLM-Specific Design**: Hardware optimized for transformer architectures and attention mechanisms
-- **Latency-Optimized Architecture**: Specifically designed to minimize inference latency for LLM workloads
-- **Energy Efficiency**: Delivers superior performance-per-watt compared to traditional accelerators like NVIDIA GPUs
-- **High Scalability**: Efficiently handles models of varying sizes and complexities  
+In this docs, we will break down HyperDex into Quick Start, Software Stack, and About LPUs. Please [contact to us](mailto:contact@hyperaccel.ai) if you need more help or any assistance. Our team is here to support you every step of the way.
 
 
-## HyperDex Software Stack
-
-**HyperDex** is HyperAccel's comprehensive end-to-end (E2E) software solution that enables you to fully harness the power of LPU technology. It provides a complete ecosystem for running large language models efficiently on our specialized hardware.
-The toolchain ensures a smooth transition from existing GPU-based workflows to LPU-optimized inference without requiring significant code changes.
-
-
-
-
-## Getting Started
-
-Ready to accelerate your LLM inference? This documentation covers:
-
-- **[Installation Guide](install_hyperdex.md)**: Set up HyperDex on your system
-- **[Quick Start](quick_start.md)**: Run your first model in minutes
-
-## Support
-
-Need help or have questions? Our team is here to support you every step of the way. Please [contact us](mailto:contact@hyperaccel.ai) for assistance.
 
