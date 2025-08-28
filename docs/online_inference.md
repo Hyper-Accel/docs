@@ -3,7 +3,7 @@ Copyright 2024 The HyperAccel Inc. All rights reserved.
 -->
 
 ### Requirements and Install Guide
-~~Requirements and Install Guide is same as[ vLLM API](./offline_inference.md). 
+Requirements and Install Guide is same as[ vLLM API](./offline_inference.md). 
 
 
 ### Serving Model

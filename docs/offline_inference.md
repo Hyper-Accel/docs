@@ -17,7 +17,7 @@ HyperDex supports the vLLM framework to run on LPU. As you know, the vLLM framew
 ### Install with pip
 You can install `hyperdex-vllm` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
-```python linenums="1" hl_lines="6 7 10 11 14"
+```python linenums="1"
 $ # (Recommended) Create a new virtual environemnt. We recommend to use uv(https://docs.astral.sh/uv/)
 $ curl -LsSf https://astral.sh/uv/install.sh | sh
 $ uv venv -p python==3.10 --no-project --seed .hdex-env

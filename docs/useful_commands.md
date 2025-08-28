@@ -1,12 +1,7 @@
-!!! warning
-    Here are some methods that was shared with previous error cases. Based on the experiences of our previous PoC customers, most of the problems occur when **pressing `Ctrl+C` while running the LPU™**. **Please do not do this!**
 
 ## Host-Memory-Access
 
-You need to allow LPUs to access to host memory when you boot the server.
-
-!!! warning
-    This command requires sudo priviliege
+You need to allow LPUs to access to host memory when you boot the server. this command requires **sudo priviliege**.
 
 ```shell linenums="1"
 $ host-memory-access
@@ -59,7 +54,7 @@ $ hyperdex-reset
 ```
 
 ## Create Network Table
-This creates network table which is necessary to use multiple LPUs
+This creates network table which is necessary to use multiple LPUs.
 ```shell linenums="1"
 $ hyperdex-net
 ```
