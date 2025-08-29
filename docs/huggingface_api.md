@@ -15,14 +15,14 @@ HyperDex provides a Python API designed to make running workloads on the LPU bot
 ### Install with pip
 You can install `hyperdex-toolchain` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
-```python linenums="1" hl_lines="6"
+```python linenums="1"
 $ # (Recommended) Create a new environemnt.
 $ curl -LsSf https://astral.sh/uv/install.sh | sh
 $ uv venv -p python==3.10 --no-project --seed .hdex-env
 $ source .hdex-env/bin/activate
 
 $ # Install HyperDex-Python
-$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.1+cpu
+$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.2+cpu
 ```
 
 ## Text Generation with HyperAccel LPU™
@@ -96,7 +96,7 @@ Starting from version 1.3.2, HyperDex-Python supports the LPU-GPU hybrid system.
 !!! note
     To run the `LPU-GPU hybrid system`, you need to have `CUDA 12.6` installed on your system. Additionally, since the GPU utilizes `PyTorch` to run LLMs, it is recommended to install `torch version 2.7.0 or later` to ensure optimal compatibility and performance.​
 
-```python linenums="1" hl_lines="10"
+```python linenums="1"
 import os
 from hyperdex.tools import AutoCompiler
 from hyperdex.transformers import AutoModelForCausalLM, AutoTokenizer
@@ -153,7 +153,6 @@ if __name__ == "__main__":
     main()
 ```
 
-To use the hybrid system, you need CUDA version 12.1 or later and the corresponding version of PyTorch.
 
 ## Sampling
 
@@ -171,7 +170,7 @@ Sampling works in the same way as HuggingFace. For sampling, you have options li
 
 HyperDex supports streaming token generation in a similar manner to HuggingFace. You can activate it by passing the TextStreamer module as an argument to the `generate` function.
 
-```python linenums="1" hl_lines="13"
+```python linenums="1"
 # Import HyperDex transformers
 from hyperdex.transformers import AutoModelForCausalLM
 from hyperdex.transformers import AutoTokenizer
@@ -189,7 +188,7 @@ streamer = TextStreamer(tokenizer, skip_special_tokens=True)
 
 Since the `TextStreamer` module includes the process of decoding through the `tokenizer` and printing internally, you only need to call the `generate` function.
 
-```python linenums="1" hl_lines="7 17"
+```python linenums="1"
 # Input text
 inputs = "Hello world!"
 
@@ -197,16 +196,14 @@ inputs = "Hello world!"
 input_ids = tokenizer.encode("Hello world!", return_tensors="np")
 # 2. Generate streaming output token ids with LPU™
 model.generate(
-  inputs,
+  input_ids,
   max_length=1024,
   # Sampling
   do_sample=True,
   top_p=0.7,
   top_k=50,
   temperature=1.0,
-  repetition_penalty=1.2,
-  # Streaming
-  streamer=streamer
+  repetition_penalty=1.2
 )
 ```
 
@@ -214,9 +211,9 @@ model.generate(
 
 HyperDex utilizes the `yield` keyword in Python to enable streaming for use in other applications. When you call the `generate_yield` function, it returns using `yield`, making it easy to use in other Python applications.
 
-```python linenums="1" hl_lines="2 10 20"
+```python linenums="1"
 # Config streamer module with disable print to activate yield mode
-streamer = TextStreamer(tokenizer, use_print=False, skip_special_tokens=True)
+streamer = TextStreamer(tokenizer, use_sse=True, use_print=False, skip_special_tokens=True)
 
 # Input text
 inputs = "Hello world!"
@@ -225,7 +222,7 @@ inputs = "Hello world!"
 input_ids = tokenizer.encode("Hello world!", return_tensors="np")
 # 2. Generate streaming output token ids with LPU™
 output_ids = model.generate_yield(
-  inputs,
+  input_ids,
   max_length=1024,
   # Sampling
   do_sample=True,
