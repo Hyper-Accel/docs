@@ -76,7 +76,7 @@ Select the appropriate installation option based on your hardware setup:
 $ uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cpu
 
 # Install HyperDex-Toolchain for CPU
-$ uv pip install -i https://pypi.hyperaccel.ai/simple hyperdex-toolchain==2+cpu
+$ uv pip install -i https://pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.2+cpu
 ```
 
 #### Option B: LPU+GPU Environment (CUDA PyTorch)
