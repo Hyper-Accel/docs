@@ -22,7 +22,7 @@ $ uv venv -p python==3.10 --no-project --seed .hdex-env
 $ source .hdex-env/bin/activate
 
 $ # Install HyperDex-Python
-$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.2+cpu
+$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.1+cpu
 ```
 
 ## Text Generation with HyperAccel LPU™

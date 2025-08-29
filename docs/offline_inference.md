@@ -29,11 +29,11 @@ $ export PYPI_PW="your_pypi_password"
 
 $ # Install HyperDex-Toolchain and vLLM in LPU only env
 $ uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cpu
-$ uv pip install -i https://${PYPI_ID}:${PYPI_PW}@@pypi.hyperaccel.ai/simple vllm-orion==0.9.0+orion.toolchain152.fpga
+$ uv pip install -i https://${PYPI_ID}:${PYPI_PW}@@pypi.hyperaccel.ai/simple vllm-orion==0.9.0+orion.toolchain151.fpga
 
 $ # Install HyperDex-Toolchain and vLLM in LPU+GPU env
 $ uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cu126
-$ uv pip install -i https://${PYPI_ID}:${PYPI_PW}@@pypi.hyperaccel.ai/simple vllm-orion==0.9.0+orion.toolchain152.hybrid
+$ uv pip install -i https://${PYPI_ID}:${PYPI_PW}@@pypi.hyperaccel.ai/simple vllm-orion==0.9.0+orion.toolchain151.hybrid
 ```
 
 
