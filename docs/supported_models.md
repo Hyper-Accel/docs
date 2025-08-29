@@ -23,4 +23,4 @@ HyperDex supports a variety of generative Transformer models in [HuggingFace Tra
 |`StarCoder2ForCausalLM`  |StarCoder2                             |`bigcode/starcoder2-15b`, etc.                                            |:material-check: |:material-close: |
 
 !!! note
-    Models marked under the “**Hybrid**” tab have been validated for use in the LPU-GPU Hybrid system. For GPU validation, the models have been tested with NVIDIA’s Ampere, Hopper, and Ada Lovelace product lines, ensuring compatibility and performance across these architectures.
+    Models marked under the “**Hybrid**” tab have been validated for use in the LPU-GPU Hybrid system. For Hybrid validation, the models have been tested with NVIDIA’s Ampere, Hopper, and Ada Lovelace product lines, ensuring compatibility and performance across these architectures.
