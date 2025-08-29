@@ -31,14 +31,16 @@ Arguments are the same as [vLLM Engine](./Offline_Inference.md).
 To call the server, run this example command at another terminal
 
 ```shell linenums="1"
-curl http://localhost:8000/generate   -H "Content-Type: application/json"   -d '{
-    "prompt": "Hello, my name is",
-    "max_tokens": 30,
-    "temperature": 0
+curl http://localhost:8000/generate \ 
+    -H "Content-Type: application/json" \
+    -d '{
+      "prompt": "Hello, my name is",
+      "max_tokens": 30,
+      "temperature": 0
   }'
 ```
 
-## Openai Client
+## OpenAI Client
 
 ### Serving Model
 
@@ -59,12 +61,14 @@ INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
 To call the server, you can use OpenAI Python client library, or any other HTTP client.
 
 ```shell linenums="1"
-curl http://localhost:8000/v1/chat/completions   -H "Content-Type: application/json"   -H "Authorization: Bearer EMPTY"   -d '{
-    "messages": [
-      {"role": "system", "content": "You are a helpful assistant."},
-      {"role": "user", "content": "Who won the world series in 2020?"},
-      {"role": "assistant", "content": "The Los Angeles Dodgers won the ^Crld Series in 2020."},
-      {"role": "user", "content": "Where was it played?"}
+curl http://localhost:8000/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -d '{
+      "messages": [
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Who won the world series in 2020?"},
+        {"role": "assistant", "content": "The Los Angeles Dodgers won the ^Crld Series in 2020."},
+        {"role": "user", "content": "Where was it played?"}
     ]
   }'
 ```

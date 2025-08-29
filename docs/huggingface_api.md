@@ -153,7 +153,6 @@ if __name__ == "__main__":
     main()
 ```
 
-To use the hybrid system, you need CUDA version 12.1 or later and the corresponding version of PyTorch.
 
 ## Sampling
 
@@ -197,16 +196,14 @@ inputs = "Hello world!"
 input_ids = tokenizer.encode("Hello world!", return_tensors="np")
 # 2. Generate streaming output token ids with LPU™
 model.generate(
-  inputs,
+  input_ids,
   max_length=1024,
   # Sampling
   do_sample=True,
   top_p=0.7,
   top_k=50,
   temperature=1.0,
-  repetition_penalty=1.2,
-  # Streaming
-  streamer=streamer
+  repetition_penalty=1.2
 )
 ```
 
@@ -216,7 +213,7 @@ HyperDex utilizes the `yield` keyword in Python to enable streaming for use in o
 
 ```python linenums="1"
 # Config streamer module with disable print to activate yield mode
-streamer = TextStreamer(tokenizer, use_print=False, skip_special_tokens=True)
+streamer = TextStreamer(tokenizer, use_sse=True, use_print=False, skip_special_tokens=True)
 
 # Input text
 inputs = "Hello world!"
@@ -225,7 +222,7 @@ inputs = "Hello world!"
 input_ids = tokenizer.encode("Hello world!", return_tensors="np")
 # 2. Generate streaming output token ids with LPU™
 output_ids = model.generate_yield(
-  inputs,
+  input_ids,
   max_length=1024,
   # Sampling
   do_sample=True,

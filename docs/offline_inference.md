@@ -23,15 +23,17 @@ $ curl -LsSf https://astral.sh/uv/install.sh | sh
 $ uv venv -p python==3.10 --no-project --seed .hdex-env
 $ source .hdex-env/bin/activate
 
+$ # Register HyperAccel PyPI credentials. Please [contact our support team](mailto:support@hyperaccel.ai) if you need help obtaining credentials.
+$ export PYPI_ID="your_pypi_username"
+$ export PYPI_PW="your_pypi_password"
+
 $ # Install HyperDex-Toolchain and vLLM in LPU only env
-$ uv pip install -i https://{pypi_username:pypi_password}@pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.1+cpu
-$ uv pip install -i https://{pypi_username:pypi_password}@pypi.hyperaccel.ai/simple vllm==0.9.0+orion
-$ uv pip install -i https://{pypi_username:pypi_password}@pypi.hyperaccel.ai/simple vllm-orion==0.9.0+orion.toolchain151.fpga
+$ uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cpu
+$ uv pip install -i https://${PYPI_ID}:${PYPI_PW}@@pypi.hyperaccel.ai/simple vllm-orion==0.9.0+orion.toolchain151.fpga
 
 $ # Install HyperDex-Toolchain and vLLM in LPU+GPU env
-$ uv pip install -i https://{pypi_username:pypi_password}@pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.1+cu126
-$ uv pip install -i https://{pypi_username:pypi_password}@pypi.hyperaccel.ai/simple vllm==0.9.0+orion
-$ uv pip install -i https://{pypi_username:pypi_password}@pypi.hyperaccel.ai/simple vllm-orion==0.9.0+orion.toolchain151.hybrid
+$ uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cu126
+$ uv pip install -i https://${PYPI_ID}:${PYPI_PW}@@pypi.hyperaccel.ai/simple vllm-orion==0.9.0+orion.toolchain151.hybrid
 ```
 
 
@@ -106,7 +108,6 @@ Sampling Params refer to setting that control how a model generates text. vLLM s
 | `top_k`               | Top-K sampling. Default value is `1`                                          |
 | `temperature`         | Smoothing the logit distribution. Defualt value is `1.0`                      |
 | `repetition_penalty`  | Give penlaty to logits. Default value is `1.2`                                |
-| `stop     `           | Token ID that signals the end of generation. Default value is `eos_token_id`  |
 
 ## Option for LLM Engine
 
