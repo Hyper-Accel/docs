@@ -17,23 +17,21 @@ HyperDex supports the vLLM framework to run on LPU. As you know, the vLLM framew
 ### Install with pip
 You can install `hyperdex-vllm` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
-```python linenums="1" hl_lines="6 7 10 11 14"
+```python linenums="1" 
 $ # (Recommended) Create a new virtual environemnt. We recommend to use uv(https://docs.astral.sh/uv/)
 $ curl -LsSf https://astral.sh/uv/install.sh | sh
 $ uv venv -p python==3.10 --no-project --seed .hdex-env
 $ source .hdex-env/bin/activate
 
 $ # Install HyperDex-Toolchain and vLLM in LPU only env
-$ uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cpu
-$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.1+cpu
-$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple vllm==0.9.0+orion
-$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple vllm-orion==0.0.1
+$ uv pip install -i https://{pypi_username:pypi_password}@pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.1+cpu
+$ uv pip install -i https://{pypi_username:pypi_password}@pypi.hyperaccel.ai/simple vllm==0.9.0+orion
+$ uv pip install -i https://{pypi_username:pypi_password}@pypi.hyperaccel.ai/simple vllm-orion==0.9.0+orion.toolchain151.fpga
 
 $ # Install HyperDex-Toolchain and vLLM in LPU+GPU env
-$ uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cu126
-$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.1+cu126
-$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple vllm==0.9.0+orion
-$ uv pip install -i https://<pypi_id:pypi_pw>@pypi.hyperaccel.ai/simple vllm-orion==0.0.1
+$ uv pip install -i https://{pypi_username:pypi_password}@pypi.hyperaccel.ai/simple hyperdex-toolchain==1.5.1+cu126
+$ uv pip install -i https://{pypi_username:pypi_password}@pypi.hyperaccel.ai/simple vllm==0.9.0+orion
+$ uv pip install -i https://{pypi_username:pypi_password}@pypi.hyperaccel.ai/simple vllm-orion==0.9.0+orion.toolchain151.hybrid
 ```
 
 
@@ -50,7 +48,8 @@ HyperDex-vLLM generates tokens very similar to vLLM's `generate` function, enabl
 
 
 ```python linenums="1"
-# You can see this file in our vLLM repo. (vllm/examples/vllm_lpu_model_runner.py.py)
+# Here is the simple python script for vllm offline inference, vllm_lpu_model_runner.py
+import logging
 from vllm import LLM, SamplingParams
 
 # Configure logging
@@ -62,7 +61,7 @@ prompts = ["Hello, my name is"]
 sampling_params = SamplingParams(temperature=0.8, top_p=0.95, top_k=1, min_tokens=30, max_tokens=30)
 
 # Create an LLM
-llm = LLM(model="/path/to/llama-7b")
+llm = LLM(model="facebook/opt-125m")
 
 # Generate texts from the prompts. 
 outputs = llm.generate(prompts, sampling_params)
