@@ -171,7 +171,7 @@ Sampling works in the same way as HuggingFace. For sampling, you have options li
 
 HyperDex supports streaming token generation in a similar manner to HuggingFace. You can activate it by passing the TextStreamer module as an argument to the `generate` function.
 
-```python linenums="1" 
+```python linenums="1"
 # Import HyperDex transformers
 from hyperdex.transformers import AutoModelForCausalLM
 from hyperdex.transformers import AutoTokenizer

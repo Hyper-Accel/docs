@@ -17,7 +17,7 @@ HyperDex supports the vLLM framework to run on LPU. As you know, the vLLM framew
 ### Install with pip
 You can install `hyperdex-vllm` using pip, which requires access rights to [HyperAccel's private PyPI server](https://pypi.hyperaccel.ai). To install the HyperDex Python package, run the following command:
 
-```python linenums="1" 
+```python linenums="1"
 $ # (Recommended) Create a new virtual environemnt. We recommend to use uv(https://docs.astral.sh/uv/)
 $ curl -LsSf https://astral.sh/uv/install.sh | sh
 $ uv venv -p python==3.10 --no-project --seed .hdex-env
@@ -35,7 +35,6 @@ $ uv pip install -i https://{pypi_username:pypi_password}@pypi.hyperaccel.ai/sim
 ```
 
 
-
 ## Text Generation with HyperAccel LPU™
 
 HyperDex-vLLM generates tokens very similar to vLLM's `generate` function, enabling you to easily generate tokens as demonstrated in the example below. to use LPU, you must give this environment variable "NUM_LPU_DEVICES" with number of devices to use
@@ -48,8 +47,7 @@ HyperDex-vLLM generates tokens very similar to vLLM's `generate` function, enabl
 
 
 ```python linenums="1"
-# Here is the simple python script for vllm offline inference, vllm_lpu_model_runner.py
-import logging
+# You can see this file in our vLLM repo. (vllm/examples/vllm_lpu_model_runner.py.py)
 from vllm import LLM, SamplingParams
 
 # Configure logging
@@ -61,7 +59,7 @@ prompts = ["Hello, my name is"]
 sampling_params = SamplingParams(temperature=0.8, top_p=0.95, top_k=1, min_tokens=30, max_tokens=30)
 
 # Create an LLM
-llm = LLM(model="facebook/opt-125m")
+llm = LLM(model="/path/to/llama-7b")
 
 # Generate texts from the prompts. 
 outputs = llm.generate(prompts, sampling_params)
