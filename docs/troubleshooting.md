@@ -96,25 +96,6 @@ nvidia-smi
 ```
 
 
----
-
-## Conda
-
-### 오류: OSError: lib/libstdc++.so.6: version `GLIBCXX_3.4.30` not found  
-
-!!! warning "원인"
-    시스템에 설치된 GCC 버전이 낮음  
-
-!!! tip "해결"
-    `hyperdex-toolchain` 환경에서 gcc 업그레이드  
-
-```bash
-conda install -c conda-forge gcc=12.1.0
-```
-
-
----
-
 ## Package
 
 ### 오류: AttributeError: 'memory_mapper' object has no attribute 'lib'  

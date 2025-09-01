@@ -38,7 +38,7 @@ from hyperdex.tools import AutoCompiler
 from hyperdex.transformers import AutoModelForCausalLM, AutoTokenizer
 
 # Path to hyperdex checkpoint (MODIFY model path and model here)
-model_id = "facebook/opt-1.3b"
+model_id = {MODEL_ID_YOU_WANT}
 
 # MODIFY hardware configuration here
 lpu_device = 2
@@ -219,7 +219,7 @@ streamer = TextStreamer(tokenizer, use_sse=True, use_print=False, skip_special_t
 inputs = "Hello world!"
 
 # 1. Encode input text to input token ids
-input_ids = tokenizer.encode("Hello world!", return_tensors="np")
+input_ids = tokenizer.encode(inputs, return_tensors="np")
 # 2. Generate streaming output token ids with LPU™
 output_ids = model.generate_yield(
   input_ids,
@@ -233,6 +233,13 @@ output_ids = model.generate_yield(
   # Streaming
   streamer=streamer
 )
+
+# Stream output tokens in real-time
+for token, is_end in next(output_ids):
+    if is_end:
+        break
+    decoded_text = tokenizer.decode(token, skip_special_tokens=True)
+    print(decoded_text, end='', flush=True)
 
 # Use outputs_ids which type is generator
 ```
