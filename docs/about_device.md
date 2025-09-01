@@ -5,12 +5,12 @@
 
 !!! question "LPU를 사용하기 위해서는 특별히 제작된 모델을 사용해야 하나요?"
 !!! tip ""
-    저희는 일반적으로 통용되는 huggingface format의 model을 사용합니다. 다만 저희 하드웨어에서 동작시키기 위해서는 hyperdex_sdk/cli/run.py를 이용해 모델을 수정하는 약간의 컴파일 과정이 필요합니다.
+    저희는 일반적으로 통용되는 huggingface format의 model을 사용합니다. 다만 저희 하드웨어에서 동작시키기 위해서는 모델 실행 이전에 저희 하드웨어 형식에 맞게 compile하는 과정이 필요하며, 이는 자동으로 진행됩니다..
 
 !!! question "LPU 상태를 확인할 수 있는 명령어가 있나요?"
 !!! tip ""
     자체 개발한 명령어 및 FPGA 명령어 공유 드립니다.
     `hyperdex-smi`를 사용하여 `nvidia-smi`와 같은 방식으로 LPU의 동작 상태를 확인하실 수 있습니다. `hyperdex-reset`을 사용하여 디바이스가 데드락 상태에 빠졌을 때 LPU를 초기화할 수 있습니다. `xbutil examine`을 사용하여 LPU가 잘 장착되어 있는지 확인하실 수 있습니다.
 
-    자세한 내용은 [Trouble-Shooting](./trouble_shoot.md) 페이지를 참고 부탁드립니다.
+    자세한 내용은 [Trouble-Shooting](./troubleshooting.md) 페이지를 참고 부탁드립니다.
 

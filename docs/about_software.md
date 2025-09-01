@@ -3,21 +3,21 @@
 !!! tip ""
     8LPU인 orion 서버의 경우 최대 66B까지 가능합니다. 
 
-!!! question "저희가 기존에 GPU 기반 서빙에 사용하고있는 text generation inference 와 유사하게 실시간 요청사항을 처리할 수 있는 LPU기반의 서빙 프레임워크로 사용 가능한 툴이 존재할까요?"
+!!! question "저희가 기존에 GPU 기반 서빙에 사용하고있는 vLLM과 유사하게 실시간 요청사항을 처리할 수 있는 LPU기반의 서빙 프레임워크로 사용 가능한 툴이 존재할까요?"
 !!! tip ""
-    네, 가능합니다. LPU 환경에서는 vLLM과 HyperDex-Toolchain을 활용해 GPU 기반 TGI와 유사한 실시간 서빙을 구현할 수 있습니다.
+    네, 가능합니다. LPU 환경을 지원하는 vLLM plugin을 지원하고 있습니다. 이를 이용하여 vLLM과 동일한 인터페이스로 사용하실 수 있습니다.
 
 !!! question "한국어도 지원 가능한가요?"
 !!! tip ""
-    모델이 특정 언어를 지원하도록 하는 것은 하드웨어가 아니라 Training 및 fine-tuning의 영역입니다. 저희 LPU 역시 모델이 지원하는 언어와 무관하게 잘 동작합니다. Ko-Alpaca, KULLM3 등 한국어를 잘하는 모델을 다운받아 실제 전시회에서 한국어로 데모한 경험도 있습니다.
+    모델이 특정 언어를 지원하도록 하는 것은 하드웨어가 아니라 Training 및 fine-tuning의 영역입니다. 저희 LPU 역시 모델이 지원하는 언어와 무관하게 잘 동작합니다. HpyerClovaX, A.X 등 한국어를 잘하는 모델을 다운받아 실제 전시회에서 한국어로 데모한 경험도 있습니다.
 
 !!! question "지원 가능한 모델의 종류"
 !!! tip ""
-    Foundation model이 llama인 모델은 모두 지원 가능합니다. (ex: llama, llama2, llama3, alpaca, yi …) [이곳](supported_models.md)에서 LPU에서 지원 가능한 모델들을 확인하실 수 있습니다.  성능은 모델에 따라 약간의 차이는 있으나 거의 모델의 크기와 비례합니다.
+    Transformer Decoder 형식의 모델 중 다양한 architecture를 지원 가능합니다. (ex: Llama, Qwen2, Phi, ...) [이곳](supported_models.md)에서 LPU에서 지원 가능한 모델들을 확인하실 수 있습니다.  성능은 모델에 따라 약간의 차이는 있으나 거의 모델의 크기와 비례합니다.
 
 !!! question "python. transformer library에서 to(’lpu’)처럼 디바이스를 설정하여 사용할 수는 없나요?"
 !!! tip ""
-    저희는 LPU를 사용자가 쉽게 사용할 수 있도록 python binding을 transformer library와 유사하게 만들어 서비스를 제공하고 있습니다. 즉 transformer library 코드에 저희 하드웨어를 붙인 것이 아니라 자체 library를 만든 것이기에 사용법이 완전히 동일하지는 않습니다. “import transformer” 를 사용하면 기존에 사용하시던 transformer library를 사용하는 것이고, “import hyperdex.transformer”를 사용하면 저희가 자체 개발한 HyperDex Library를 사용하는 것입니다. 따라서 model을 부르고 generate를 수행하는 방식은 저희가 제공해드린 예시 코드를 따라주셔야 정상작동합니다. 파이썬 함수가 어떻게 동작하는지 궁금하시다면 /home/server/miniconda3/envs/poc-env/lib/python3.10/site-packages/hyperdex/ 에 들어가셔서 소스코드를 참고해보셔도 좋을 것 같습니다.
+    저희는 LPU를 사용자가 쉽게 사용할 수 있도록 python binding을 transformer library와 유사하게 만들어 서비스를 제공하고 있습니다. 즉 transformer library 코드에 저희 하드웨어를 붙인 것이 아니라 자체 library를 만든 것이기에 사용법이 완전히 동일하지는 않습니다. “import transformer” 를 사용하면 기존에 사용하시던 transformer library를 사용하는 것이고, “import hyperdex.transformer”를 사용하면 저희가 자체 개발한 HyperDex Library를 사용하는 것입니다. 따라서 model을 부르고 generate를 수행하는 방식은 저희가 제공해드린 예시 코드를 따라주셔야 정상작동합니다.
 
 !!! question "HyperDex-Toolchain에서 제공하는 LPU를 사용하려면, 언어모델 초기부터, HyperDex-Toolchain에서 제공하는 SDK library를 이용하여 개발을 해야하나요?"
 !!! tip ""
@@ -33,5 +33,6 @@
 
 !!! question "HyperDex-Toolchain를 설치하려면 어떻게 해야 하는 지 확인부탁합니다. pip install hyperdex-toolchain 하니 안되네요."
 !!! tip ""
-    현재 hyperdex library는 오픈 소스가 아니므로 저희가 licensing 후 배포해드리고 있습니다. 추가적인 설치가 필요하다면 원격 접속을 통해 설치해드릴 수 있습니다.
+    현재 hyperdex library는 오픈 소스가 아니므로 저희가 licensing 후 https://pypi.hyperaccel.ai 를 통해 배포해드리고 있습니다.
+    계정 생성 이후 사용가능 하므로, 세일즈 팀에 문의 부탁드립니다.
 
