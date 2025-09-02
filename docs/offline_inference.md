@@ -49,7 +49,7 @@ HyperDex-vLLM generates tokens very similar to vLLM's `generate` function, enabl
 
 
 ```python linenums="1"
-# You can see this file in our vLLM repo. (vllm/examples/vllm_lpu_model_runner.py.py)
+# Quick example for LPU execution in vLLM framework, content of "main.py"
 from vllm import LLM, SamplingParams
 
 # Configure logging

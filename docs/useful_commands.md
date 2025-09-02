@@ -19,7 +19,7 @@ You can check the status of the device that is running. This code shows online d
 $ watch -n 1 hyperdex-smi
 Fri Sep  6 17:17:52 2024
 +-----------------------------------------------------------------------------+
-| HYPERDEX-SMI            XRT Version: 2022.2     HyperDex Version: 1.3.2     |
+| HYPERDEX-SMI            XRT Version: 2022.2     HyperDex Version: 1.5.2     |
 +-----------------------------------------------------------------------------+
 | FPGA Name        Persistence-M| Bus-Id     Bitstream | Volatile Uncorr. ECC |
 |      Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | FPGA-Util Compute M. |

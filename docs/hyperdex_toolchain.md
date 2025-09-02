@@ -44,7 +44,7 @@ Before using the HyperDex Toolchain, please ensure you have met all the requirem
 
 ## Prerequisites
 - An LPU device is installed and recognized (`lspci | grep -i xilinx`)
-- **XRT** and **Shell** are installed successfully
+- **XRT** is installed successfully
 - Linux kernel version is supported by both XRT and HyperDex Toolchain
 - You have the necessary credentials to download required packages
 
