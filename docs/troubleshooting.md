@@ -1,6 +1,45 @@
 <!---
 Copyright 2024 The HyperAccel Inc. All rights reserved.
 -->
+# Frequently Asked Questions
+
+## 1. Timeout error
+
+!!! warning "원인"  
+    동작 중 LPU가 답을 주지 못한 상태로 작업 중 리소스 충돌 등으로 데드락에 걸린 상태일 가능성이 높다  
+
+!!! tip "해결"  
+    - `hyperdex-reset` 실행  
+    - 지속적일 경우 서버 리부트 및 `host-memory-access` 후 재시도  
+
+예시 에러 로그:
+```bash
+...
+Processed prompts:   0%|                      | 0/1 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s2025-07-31 13:19:18,798 - [ ERROR ] : Timeout occurred while waiting for the LPU to generate tokens.
+2025-07-31 13:19:18,798 - [ ERROR ] : Timeout occurred while waiting for the LPU to generate tokens.
+2025-07-31 13:19:18,803 - [ CRITICAL ] : Soft Reset Triggered! It takes about 3 seconds in multi LPU config...
+```
+
+---
+
+## 2. Multi-batch
+
+!!! warning "원인"  
+    입력 프롬프트를 다중 배치로 구성
+
+!!! tip "해결"  
+    입력 배치를 1로 변경합니다.
+
+예시 에러 로그:
+```bash
+...
+[rank0]:     input_tokens = torch.tensor(input_tokens,
+[rank0]: ValueError: expected sequence of length 6 at dim 1 (got 8)
+Processed prompts:   0%|  
+```
+
+
+---
 
 # Troubleshooting
 
@@ -95,6 +134,25 @@ modprobe nvidia
 nvidia-smi
 ```
 
+
+---
+
+## Conda
+
+### 오류: OSError: lib/libstdc++.so.6: version `GLIBCXX_3.4.30` not found  
+
+!!! warning "원인"
+    시스템에 설치된 GCC 버전이 낮음  
+
+!!! tip "해결"
+    `hyperdex-toolchain` 환경에서 gcc 업그레이드  
+
+```bash
+conda install -c conda-forge gcc=12.1.0
+```
+
+
+---
 
 ## Package
 
