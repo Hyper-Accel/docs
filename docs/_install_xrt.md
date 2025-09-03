@@ -8,9 +8,15 @@ Before starting the installation, make sure that the LPU is properly connected t
     To install XRT, ensure that the **kernel version** and **kernel-headers** version match. Additionally, if your operating system is Ubuntu and the kernel version is **5.15.0-41-generic or higher**, you will need to **downgrade** the kernel. The recommended kernel version is 5.15.0-25.
 
 For Each-based systems (e.g. Centos-7, Ubuntu 22.04 LTS, Rocky 8.4)
+
+* Centos-7, Rocky 8.4
+
 ```python linenums="1"
 # yum install xrt_202310.2.15.225_8.1.1911-x86_64-xrt.rpm
 ```
+
+* Ubuntu 22.04 LTS
+
 ```python linenums="1"
 # dpkg -i xrt_202310.2.15.225_22.04-amd64-xrt.deb
 ```
@@ -95,11 +101,17 @@ The next step is to install the XRT Firmware, which enables the FPGA to handle b
 
 **Download the Deployment Target Platform:** This is the communication layer physically implemented and flashed into the card.<br />
 
-For Each-based systems (e.g. Centos-7, Ubuntu 22.04 LTS, Rocky 8.4
+For Each-based systems (e.g. Centos-7, Ubuntu 22.04 LTS, Rocky 8.4)
+
+* Centos-7, Rocky 8.4
+
 ```python linenums="1"
 # tar -xvf xilinx-u55c-gen3x16-xdma_2023.1_2023_0507_2220-noarch.rpm.tar.gz
 # yum install xilinx-*.rpm
 ```
+
+* Ubuntu 22.04 LTS
+
 ```python linenums="1"
 # tar -xvf xilinx-u55c-gen3x16-xdma_2023.1_2023_0507_2220-all.deb.tar.gz
 # dpkg -i  xilinx-*.deb

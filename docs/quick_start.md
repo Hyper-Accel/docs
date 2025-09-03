@@ -26,10 +26,10 @@ from hyperdex.transformers import AutoTokenizer
 
 ```python linenums="3"
 # Load tokenizer from HuggingFace Hub
-tokenizer = AutoTokenizer.from_pretrained("facebook/opt-125m")
+tokenizer = AutoTokenizer.from_pretrained("facebook/opt-1.3b")
 
 # Load model and map it to LPU device
-model = AutoModelForCausalLM.from_pretrained("facebook/opt-125m", device_map={"lpu": 1})
+model = AutoModelForCausalLM.from_pretrained("facebook/opt-1.3b", device_map={"lpu": 1})
 ```
 
 !!! tip "Device Mapping"
