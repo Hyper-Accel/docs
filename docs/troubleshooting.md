@@ -6,7 +6,7 @@ Copyright 2024 The HyperAccel Inc. All rights reserved.
 ## 1. Timeout error
 
 !!! warning "원인"  
-    동작 중 LPU가 답을 주지 못한 상태로 작업 중 리소스 충돌 등으로 데드락에 걸린 상태일 가능성이 높다  
+    LPU가 응답하지 못한 상태로, 리소스 충돌 등으로 인해 Deadlock이 발생했을 가능성이 높습니다. 
 
 !!! tip "해결"  
     - `hyperdex-reset` 실행  
@@ -25,7 +25,7 @@ Processed prompts:   0%|                      | 0/1 [00:00<?, ?it/s, est. speed 
 ## 2. Multi-batch
 
 !!! warning "원인"  
-    입력 프롬프트를 다중 배치로 구성
+    입력 프롬프트가 다중 배치로 전달되었습니다.
 
 !!! tip "해결"  
     입력 배치를 1로 변경합니다.
@@ -58,7 +58,7 @@ Processed prompts:   0%|
     Os `linux-image` 버전과 `linux-headers` 간의 버전 불일치  
 
 !!! tip "해결"
-    두 버전을 동일한 버전으로 맞춰줍니다.  
+    두 패키지를 동일한 버전으로 맞춰야 합니다. 
 
 ```bash
 uname -r   # linux-image 버전 확인
@@ -71,10 +71,10 @@ apt list --installed | grep -i linux-headers  # linux-headers 버전 확인
 ### 오류: [XRT] ERROR: Kernel arg `axi00_ptr0` is not set  
 
 !!! warning "원인"
-    서버 재부팅 시 host memory 활성화가 되지 않아 발생  
+    서버 재부팅 후 host memory가 활성화되지 않았습니다.
 
 !!! tip "해결"
-    host memory enable 스크립트 실행 (`sudo` 권한 필요)  
+    host memory enable 스크립트를 sudo 권한이 있는 계정에서 실행합니다.
 
 ```bash
 host-memory-access
@@ -89,7 +89,7 @@ host-memory-access
     Ctrl+C 등 의도치 않은 시그널이 디바이스로 전달됨  
 
 !!! tip "해결"
-    `hyperdex-toolchain` 패키지 환경에서 reset 실행  
+    hyperdex-toolchain 환경에서 reset을 수행합니다.
 
 ```bash
 hyperdex-reset
@@ -104,7 +104,7 @@ hyperdex-reset
     Deadlock 발생  
 
 !!! tip "해결"
-    `hyperdex-toolchain` 패키지 환경에서 reset 실행  
+    hyperdex-toolchain 환경에서 reset을 수행합니다.
 
 ```bash
 hyperdex-reset
@@ -118,10 +118,10 @@ hyperdex-reset
 ### 오류: Failed to initialize NVML : Driver/library version mismatch  
 
 !!! warning "원인"
-    커널에 로드된 드라이버 버전과 `/usr/lib/` 내 NVML 라이브러리와의 버전 충돌  
+    커널에 로드된 드라이버 버전과 `/usr/lib/` 내 NVML 라이브러리와의 버전이 불일치
 
 !!! tip "해결"
-    nvidia 모듈 언로드 후 재로드  
+    NVIDIA 모듈 언로드 후 재로드
     (사용 중인 프로세스는 **kill 후 진행**)  
 
 ```bash
@@ -134,24 +134,6 @@ modprobe nvidia
 nvidia-smi
 ```
 
-
----
-
-## Conda
-
-### 오류: OSError: lib/libstdc++.so.6: version `GLIBCXX_3.4.30` not found  
-
-!!! warning "원인"
-    시스템에 설치된 GCC 버전이 낮음  
-
-!!! tip "해결"
-    `hyperdex-toolchain` 환경에서 gcc 업그레이드  
-
-```bash
-conda install -c conda-forge gcc=12.1.0
-```
-
-
 ---
 
 ## Package
@@ -159,13 +141,16 @@ conda install -c conda-forge gcc=12.1.0
 ### 오류: AttributeError: 'memory_mapper' object has no attribute 'lib'  
 
 !!! warning "원인"
-    Torch 버전 mismatch (필수: 2.4.0)  
+    Torch 버전 mismatch (필수: 2.7.0)  
 
 !!! tip "해결"
-    torch 2.4.0 재설치  
+    torch 2.7.0 재설치  
 
 ```bash
-pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 -i https://download.pytorch.org/whl/cpu
+# LPU only env
+uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cpu
+# LPU + GPU env
+uv pip install torch==2.7.0 torchvision==0.22.0 torchaudio==2.7.0 --index-url https://download.pytorch.org/whl/cu126
 ```
 
 
@@ -177,49 +162,37 @@ pip install torch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 -i https://downlo
     네트워크 테이블 생성 실패  
 
 !!! tip "해결"
-    - network table 파일 확인  
+    - network table 파일 존재 여부 확인  
     - QSFP cabling 상태 확인 후 재생성  
 
 ```bash
-ls -al /home/user/env/envs/poc-env/lib/python<python_version>/site-packages/hyperdex/xclbin
+ls -al /tmp/hyperdex/xclbin/table_bdf.json
 ```
 
 예시 출력:  
 ```
--rw-r--r-- 1 user user      423  5월  8 01:37 table_bdf.json
--rw-r--r-- 1 user user        0  5월 13 14:25 table_bdf.json.lock
+-rw-r--r-- 1 user user 233  9월  3 15:56 /tmp/hyperdex/xclbin/table_bdf.json
 ```
 
-→ 파일이 없을 경우 재생성 필요  
+→ 파일이 없을 경우 재생성이 필요합니다.  
 
 
 ---
 
 ## vLLM
 
-### 오류: KeyError: 'text'  
+### 오류: curl: (7) Failed to connect to localhost port 8001 after 0 ms: Connection refused
 
 !!! warning "원인"
-    기본 `8000`번 포트로 전송된 경우  
+    curl 요청이 실행중인 vLLM과 다른 포트로 전송되었습니다.
 
 !!! tip "해결"
-    실행 중인 vLLM 프로세스 포트 확인  
+    실행 중인 vLLM 프로세스의 포트를 확인합니다. 
+    실행 시 설정한 포트와 같은 값으로 curl 요청을 보냅니다.
 
 ```bash
 ps -ef | grep -i vllm
 ```
 
 
----
 
-### 오류: requests.exceptions.ConnectionError: HTTPConnectionPool(host='localhost', port=4000)  
-
-!!! warning "원인"
-    실행 중인 vLLM과 다른 포트로 요청이 전송됨  
-
-!!! tip "해결"
-    실행 프로세스 포트 확인  
-
-```bash
-ps -ef | grep -i vllm
-```
