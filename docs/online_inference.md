@@ -31,7 +31,7 @@ Arguments are the same as [vLLM Engine](./Offline_Inference.md).
 To call the server, run this example command at another terminal
 
 ```shell linenums="1"
-curl http://localhost:8000/generate \ 
+curl -X POST "http://localhost:8000/generate" \
     -H "Content-Type: application/json" \
     -d '{
       "prompt": "Hello, my name is",
