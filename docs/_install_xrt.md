@@ -11,13 +11,13 @@ For Each-based systems (e.g. Centos-7, Ubuntu 22.04 LTS, Rocky 8.4)
 
 * Centos-7, Rocky 8.4
 
-```python linenums="1"
+```bash linenums="1"
 # yum install xrt_202310.2.15.225_8.1.1911-x86_64-xrt.rpm
 ```
 
 * Ubuntu 22.04 LTS
 
-```python linenums="1"
+```bash linenums="1"
 # dpkg -i xrt_202310.2.15.225_22.04-amd64-xrt.deb
 ```
 Once the installation is complete, the **XRT files** will be located under the `/opt/xilinx/xrt/` directory. You will need to source the `/opt/xilinx/xrt/setup.sh` script to use commands such as `xbutil` and `xbmgmt`.
@@ -105,20 +105,20 @@ For Each-based systems (e.g. Centos-7, Ubuntu 22.04 LTS, Rocky 8.4)
 
 * Centos-7, Rocky 8.4
 
-```python linenums="1"
+```bash linenums="1"
 # tar -xvf xilinx-u55c-gen3x16-xdma_2023.1_2023_0507_2220-noarch.rpm.tar.gz
 # yum install xilinx-*.rpm
 ```
 
 * Ubuntu 22.04 LTS
 
-```python linenums="1"
+```bash linenums="1"
 # tar -xvf xilinx-u55c-gen3x16-xdma_2023.1_2023_0507_2220-all.deb.tar.gz
 # dpkg -i  xilinx-*.deb
 ```
 
  **Flash the Firmware:** Execute the following command in the shell to flash the firmware onto the FPGA card:
-```python linenums="1"
+```bash linenums="1"
 # xbmgmt program --base --device <BDF> --image xilinx_u55c_gen3x16_xdma_base_3
 ```
 
